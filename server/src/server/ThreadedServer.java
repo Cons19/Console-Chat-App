@@ -9,7 +9,8 @@ public class ThreadedServer {
     private static final int PORT = 2222;
     private static final int MAX_CLIENTS = 10;
     final class Protocols{
-        static final String EXIT = "/exit";
+        static final String EXIT = "exit";
+        static final String MSG_INVALID = "Invalid command";
 
     }
 
