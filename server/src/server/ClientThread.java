@@ -5,11 +5,8 @@ import server.lang.Languages;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 
-import static server.lang.Languages.Color.*;
 import static server.lang.Languages.Text.*;
 
 //DONE: private messages [Razvan, Paul]
@@ -34,7 +31,7 @@ import static server.lang.Languages.Text.*;
  * Broadcasts the user input to all other clients, and processes
  * different commands sent by the user (using the forward slash, '/')
  */
-@SuppressWarnings("RedundantStringFormatCall")
+@SuppressWarnings({"RedundantStringFormatCall", "SameParameterValue"})
 class ClientThread extends Thread {
     private static final String GOD = "ANDREAS";
     //input and output streams
@@ -69,7 +66,6 @@ class ClientThread extends Thread {
         this.isMuted = false;
         //change client status to available
         this.isAvailable = true;
-        this.ln = Languages.en;
 
     }
 
@@ -89,6 +85,8 @@ class ClientThread extends Thread {
         //sets the input and output streams
         is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         os = new PrintStream(clientSocket.getOutputStream());
+        //Asks the client for a display language
+        langPrompt();
         //Asks the client for a display name
         os.printf(ln.text(S_ENTER_NAME));//S_ENTER_NAME
         setClientName(is.readLine().trim());
@@ -147,7 +145,7 @@ class ClientThread extends Thread {
                 //+1 to get the char after the space that follows the protocol
                 else try {
                     if (command.startsWith(Protocols.LANG)) {
-                        changeLanguage(command.substring(Protocols.LANG.length() + 1));
+                        changeLang(command.substring(Protocols.LANG.length() + 1));
                     } else if (command.startsWith(Protocols.PROMOTE)) {
                         promoteOther(command.substring(Protocols.PROMOTE.length() + 1), true);
                     } else if (command.startsWith(Protocols.DEPROMOTE)) {
@@ -183,7 +181,7 @@ class ClientThread extends Thread {
     }
 
 
-    //    extract paramethers (targetClientName, message) to use in broadcastPrivateMessage method
+    //extract parameters (targetClientName, message) to use in broadcastPrivateMessage method
     private void privateMessage(String line) {
         //Example: "/PM R: hello, R"
         boolean client1Available = false;
@@ -263,28 +261,27 @@ class ClientThread extends Thread {
             broadcastStatus(S_IS_NOW_ADMIN, clientName);//S_IS_NOW_ADMIN
         }
     }
-    private void dePromote(){
+    void dePromote(){
         if (isAdmin){
             isAdmin = false;
             broadcastStatus(S_IS_NO_LONGER_ADMIN, clientName);//S_IS_NO_LONGER_ADMIN
         }
     }
-    private void kick(){
+    void kick(){
         os.print(ln.text(S_KICKED));//S_KICKED
         onLeave();
     }
-    private void mute(){
+    void mute(){
         if (!isMuted) {
             isMuted = true;
             os.print(S_MUTED);//S_MUTED
 
         }
     }
-    private void unMute(){
+    void unMute(){
         if (isMuted) {
             isMuted = false;
             os.print(ln.text(S_UNMUTED));//S_UNMUTED
-
         }
     }
     //promote or depromote another client
@@ -360,6 +357,17 @@ class ClientThread extends Thread {
             }
         }while (color == null);
     }
+    private void langPrompt() throws IOException{
+        StringBuilder langMessage = new StringBuilder();
+        for (String langKey : Languages.all.keySet()) {
+            langMessage.append(Languages.all.get(langKey).name).append(' ');
+        }
+        os.println(langMessage);
+        do {
+            String input = is.readLine().toUpperCase();
+            changeLang(input);
+        }while (ln == null);
+    }
 
     //Getters, Setters
     void setIs(InputStream is) {
@@ -389,22 +397,15 @@ class ClientThread extends Thread {
             ln = lang;
             os.printf(ln.text(S_LANG_CHANGED), ln.name); //S_LANG_CHANGED
         }
+        else {
+            Languages.Language dummyLang = lang;
+            if (dummyLang == null) dummyLang = Languages.en;
+            os.printf(dummyLang.text(S_LANG_INVALID));//S_LANG_INVALID
+        }
     }
 
-    private void changeLanguage(String substring) {
-        switch (substring){
-            case "en": case "english":
-                ln = Languages.en;
-                break;
-            case "ro": case "romanian":
-                ln = Languages.ro;
-                break;
-            case "it": case "italian":
-                ln = Languages.it;
-                break;
-            default:
-                os.printf(ln.text(S_LANG_INVALID));//S_LANG_INVALID
-        }
+    private void changeLang(String lang) {
+        setLang(Languages.all.get(lang));
     }
 
     private String getClientName() {
@@ -413,15 +414,5 @@ class ClientThread extends Thread {
 
     private boolean isAvailable() {
         return isAvailable;
-    }
-
-    private class Output{
-        private PrintStream printStream;
-
-        Output(PrintStream printstream){
-            this.printStream = printstream;
-        }
-
-
     }
 }
