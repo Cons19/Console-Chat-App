@@ -28,7 +28,11 @@ public class ThreadedServer {
                             MUTE = "mute",
                             UNMUTE = "unmute",
                             BYE = "bye",
-                            MSG_INVALID = "Invalid command";
+                            MSG_INVALID = "Invalid command",
+                            CURRENT_STATUS = "currentStatus",
+                            CHANGE_STATUS = "changeStatus",
+                            EMOJI = "emoji",
+                            PRIVATE_MESSAGE = "PM";
     }
 
     //main Server thread

@@ -150,21 +150,68 @@ class ClientThread extends Thread {
                         }
                     } else if (line.substring(1).contains("emoji")) {
                         os.println(clientName + " - \uD83C\uDDEE\uD83C\uDDF9");
-                    }
-//                    else if (line.substring(1).startsWith("PM-") && line.contains(1)) {//sampleMethod3();
-//                        validClientName
-//                        return;
-//                    }
-                    else {
+                    } else if (line.substring(1).contains(Protocols.CURRENT_STATUS)) {
+                        showStatus();
+                    } else if (line.substring(1).contains(Protocols.CHANGE_STATUS)) {
+                        changeStatus();
+                        showStatus();
+                    } else if (line.substring(1).contains(Protocols.EMOJI)) {
+//                TODO: to implement 3-5 emoji's, especially the ITALIAN FLAG
+//                showEmoji(type);
+                        os.println(clientName + " - \uD83C\uDDEE\uD83C\uDDF9");
+                    } else if (line.substring(1).contains(Protocols.PRIVATE_MESSAGE)) {
+                        privateMessage(line);
+                    } else {
                         os.printf("%s: \"%s\"%n", Protocols.MSG_INVALID, line);
                     }
                     return;
-                } catch (StringIndexOutOfBoundsException ignored) {}
+                } catch (StringIndexOutOfBoundsException ignored) {
+                }
                 os.printf("%s: \"%s\"%n", Protocols.MSG_INVALID, line);
             } else {
                 //send the normal message to the chat room
                 broadcastMessage(String.format("<%s> %s", clientName, line));
             }
+        }
+    }
+
+
+//    extract paramethers (targetClientName, message) to use in broadcastPrivateMessage method
+    private void privateMessage(String line) {
+        //Example: "/PM R: hello, R"
+        boolean client1Available = false;
+        boolean client2Available = false;
+
+        os.println(clientName + " - " + line.substring(1+"PM".length()+1));
+        String targetClientName = line.substring(1+"PM".length()+1, line.indexOf(":"));
+        String message = line.substring(line.indexOf(":") + 1);
+
+//      check is both clients have an available status, if so broadcast the message between them.
+        for (int i = 0; i < maxClientsCount; i++) {
+            if (threads[i] !=null && threads[i].getClientName().equals(clientName) && threads[i].isAvailable()) {
+                client1Available = true;
+            }
+            if (threads[i] !=null && threads[i].getClientName().equals(targetClientName) && threads[i].isAvailable()) {
+                client2Available = true;
+            }
+        }
+        if (client1Available) {
+            if (client2Available) {
+                broadcastPrivateMessage(clientName, targetClientName, message);
+            } else {
+                os.println(targetClientName + " is unavailable. Wait until " + targetClientName + " becomes available.");
+            }
+        } else {
+            os.println(clientName + " is unavailable. Change status to available.");
+        }
+    }
+
+    //Show Current Status of the client
+    private void showStatus() {
+        if (isAvailable == true) {
+            os.println(clientName + " - Current Status is available.");
+        } else {
+            os.println(clientName + " - Current Status is unavailable.");
         }
     }
 
@@ -179,6 +226,15 @@ class ClientThread extends Thread {
         }
         else{
             os.println("You are muted, you cannot do that.");
+        }
+    }
+
+    //Sends the message to Private Client
+    private void broadcastPrivateMessage(String clientName, String targetClientName, String line) {
+        for (int i = 0; i < maxClientsCount; i++) {
+            if (threads[i] !=null && threads[i].getClientName().equals(targetClientName)) {
+                threads[i].os.println("<PM from " + clientName + ">" + line);
+            }
         }
     }
 
@@ -292,5 +348,13 @@ class ClientThread extends Thread {
 
     public String getClientName() {
         return clientName;
+    }
+
+    public boolean isAvailable() {
+        if (isAvailable == true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
