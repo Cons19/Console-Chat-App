@@ -54,7 +54,6 @@ public class ThreadedServer {
                 setOs(System.out);
                 setClientName("Server");
                 setColor(Colors.PURPLE);
-                setLang(Languages.en);
                 promote();
             }
         };

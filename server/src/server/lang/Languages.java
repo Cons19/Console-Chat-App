@@ -4,30 +4,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Languages {
-    public static final Language en = new Language() {
+    public static final Language en = new Language("EN") {
         @Override
-        void populate() {
-            addText(Text.S_ENTER_NAME, "Enter your name: ");
-            addText(Text.S_HELLO, "Hello, %s%n");
-            addText(Text.S_HAS_JOINED, "%s joined.");
-            addText(Text.S_LEFT, "%s left.");
-            addText(Text.S_STATUS_AVAILABLE, "%s - available.%n");
-            addText(Text.S_STATUS_UNAVAILABLE, "%s - unavailable.%n");
-            addText(Text.S_INVALID_COMMAND, "Invalid command: \"%s\"%n");
-            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s is unavailable. Wait until %s becomes available.%n");
-            addText(Text.S_PM_SELF_UNAVAILABLE, "You are unavailable. Change your status to available.");
-            addText(Text.S_CURRENTLY_MUTED, "You are muted, you cannot do that.");
-            addText(Text.S_PM_FROM, "<PM from %s>%s%n");
-            addText(Text.S_IS_NOW_ADMIN, "%s is now an admin.");
-            addText(Text.S_IS_NO_LONGER_ADMIN, "%s is no longer an admin.");
-            addText(Text.S_KICKED, "You have been kicked from the room.");
-            addText(Text.S_MUTED, "You have been muted.");
-            addText(Text.S_UNMUTED, "You are no longer muted.");
-            addText(Text.S_USER_NOT_FOUND, "%s was not found.%n");
-            addText(Text.S_NO_PERMISSION, "You don't have permission to do that.");
+        void fillDictionary() {
+            addText(Text.S_ENTER_NAME, "Enter your name: \n");
+            addText(Text.S_HELLO, "Hello, %s\n");
+            addText(Text.S_HAS_JOINED, "%s joined.\n");
+            addText(Text.S_LEFT, "%s left.\n");
+            addText(Text.S_STATUS_AVAILABLE, "%s - available.\n");
+            addText(Text.S_STATUS_UNAVAILABLE, "%s - unavailable.\n");
+            addText(Text.S_INVALID_COMMAND, "Invalid command: \"%s\"\n");
+            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s is unavailable. Wait until %s becomes available.\n");
+            addText(Text.S_PM_SELF_UNAVAILABLE, "You are unavailable. Change your status to available.\n");
+            addText(Text.S_CURRENTLY_MUTED, "You are muted, you cannot do that.\n");
+            addText(Text.S_PM_FROM, "<PM from %s>%s\n");
+            addText(Text.S_IS_NOW_ADMIN, "%s is now an admin.\n");
+            addText(Text.S_IS_NO_LONGER_ADMIN, "%s is no longer an admin.\n");
+            addText(Text.S_KICKED, "You have been kicked from the room.\n");
+            addText(Text.S_MUTED, "You have been muted.\n");
+            addText(Text.S_UNMUTED, "You are no longer muted.\n");
+            addText(Text.S_USER_NOT_FOUND, "%s was not found.\n");
+            addText(Text.S_NO_PERMISSION, "You don't have permission to do that.\n");
             addText(Text.S_COLOR_CHOOSE, "Choose your color: ");
-            addText(Text.S_COLOR_INVALID, "Invalid color");
-            addText(Text.S_LANG_INVALID, "Language unavailable");
+            addText(Text.S_COLOR_INVALID, "Invalid color\n");
+            addText(Text.S_LANG_INVALID, "Language unavailable\n");
+            addText(Text.S_LANG_CHANGED, "Language changed to %s\n");
             addColor(Color.C_BLACK, "black");
             addColor(Color.C_RED, "red");
             addColor(Color.C_GREEN, "green");
@@ -38,30 +39,31 @@ public class Languages {
             addColor(Color.C_WHITE, "white");
         }
     };
-    public static final Language ro = new Language() {
+    public static final Language ro = new Language("RO") {
         @Override
-        void populate() {
-            addText(Text.S_ENTER_NAME, "Introduceti numele: ");
-            addText(Text.S_HELLO, "Buna, %s%n");
-            addText(Text.S_HAS_JOINED, "%s a intrat.");
-            addText(Text.S_LEFT, "%s a iesit.");
-            addText(Text.S_STATUS_AVAILABLE, "%s - disponibil.%n");
-            addText(Text.S_STATUS_UNAVAILABLE, "%s - indisponibil.%n");
-            addText(Text.S_INVALID_COMMAND, "Comanda invalida: \"%s\"%n");
-            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s e indisponibil. Asteptati pana %s devine disponibil.%n");
-            addText(Text.S_PM_SELF_UNAVAILABLE, "Sunteti indisponibil. Schimbati statusul in disponibil.");
-            addText(Text.S_CURRENTLY_MUTED, "Sunteti dezactivat, nu puteti face asta.");
-            addText(Text.S_PM_FROM, "<PM de la %s>%s%n");
-            addText(Text.S_IS_NOW_ADMIN, "%s este acum admin.");
-            addText(Text.S_IS_NO_LONGER_ADMIN, "%s nu mai este admin.");
-            addText(Text.S_KICKED, "Ati fost dat afara din camera.");
-            addText(Text.S_MUTED, "Ati fost dezactivat.");
-            addText(Text.S_UNMUTED, "Nu mai sunteti dezactivat.");
-            addText(Text.S_USER_NOT_FOUND, "%s nu a fost gasit.%n");
-            addText(Text.S_NO_PERMISSION, "Nu aveti permisiune pentru asta.");
+        void fillDictionary() {
+            addText(Text.S_ENTER_NAME, "Introduceti numele: \n");
+            addText(Text.S_HELLO, "Buna, %s\n");
+            addText(Text.S_HAS_JOINED, "%s a intrat.\n");
+            addText(Text.S_LEFT, "%s a iesit\n.");
+            addText(Text.S_STATUS_AVAILABLE, "%s - disponibil.\n");
+            addText(Text.S_STATUS_UNAVAILABLE, "%s - indisponibil.\n");
+            addText(Text.S_INVALID_COMMAND, "Comanda invalida: \"%s\"\n");
+            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s e indisponibil. Asteptati pana %s devine disponibil.\n");
+            addText(Text.S_PM_SELF_UNAVAILABLE, "Sunteti indisponibil. Schimbati statusul in disponibil.\n");
+            addText(Text.S_CURRENTLY_MUTED, "Sunteti dezactivat, nu puteti face asta.\n");
+            addText(Text.S_PM_FROM, "<PM de la %s>%s\n");
+            addText(Text.S_IS_NOW_ADMIN, "%s este acum admin.\n");
+            addText(Text.S_IS_NO_LONGER_ADMIN, "%s nu mai este admin.\n");
+            addText(Text.S_KICKED, "Ati fost dat afara din camera\n.");
+            addText(Text.S_MUTED, "Ati fost dezactivat.\n");
+            addText(Text.S_UNMUTED, "Nu mai sunteti dezactivat.\n");
+            addText(Text.S_USER_NOT_FOUND, "%s nu a fost gasit.\n");
+            addText(Text.S_NO_PERMISSION, "Nu aveti permisiune pentru asta.\n");
             addText(Text.S_COLOR_CHOOSE, "Alegeti culoarea: ");
-            addText(Text.S_COLOR_INVALID, "Culoare indisponibila");
-            addText(Text.S_LANG_INVALID, "Limba indisponibila");
+            addText(Text.S_COLOR_INVALID, "Culoare indisponibila\n");
+            addText(Text.S_LANG_INVALID, "Limba indisponibila\n");
+            addText(Text.S_LANG_CHANGED, "Limba s-a schimbat in %s\n");
             addColor(Color.C_BLACK, "negru");
             addColor(Color.C_RED, "rosu");
             addColor(Color.C_GREEN, "verde");
@@ -72,30 +74,31 @@ public class Languages {
             addColor(Color.C_WHITE, "alb");
         }
     };
-    public static final Language it = new Language() {
+    public static final Language it = new Language("IT") {
         @Override
-        void populate() {
-            addText(Text.S_ENTER_NAME, "Inserisci il tuo nome: ");
-            addText(Text.S_HELLO, "Ciao, %s%n");
-            addText(Text.S_HAS_JOINED, "%s si è unito.");
-            addText(Text.S_LEFT, "%s se n'è andato.");
-            addText(Text.S_STATUS_AVAILABLE, "%s - disponibile.%n");
-            addText(Text.S_STATUS_UNAVAILABLE, "%s - non disponibile.%n");
-            addText(Text.S_INVALID_COMMAND, "Comando non valido: \"%s\"%n");
-            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s non è disponibile. aspetta che Alex diventi disponibile.%n");
-            addText(Text.S_PM_SELF_UNAVAILABLE, "Non sei disponibile. Cambia il tuo stato a disponibile.");
-            addText(Text.S_CURRENTLY_MUTED, "Sei disattivato, non puoi farlo.");
-            addText(Text.S_PM_FROM, "<PM di %s>%s%n");
-            addText(Text.S_IS_NOW_ADMIN, "%s è ora un amministratore.");
-            addText(Text.S_IS_NO_LONGER_ADMIN, "%s non è più un amministratore.");
-            addText(Text.S_KICKED, "Sei stato preso a calci dalla stanza.");
-            addText(Text.S_MUTED, "Sei stato disattivato.");
-            addText(Text.S_UNMUTED, "Non sei più disattivato.");
-            addText(Text.S_USER_NOT_FOUND, "%s non è stato trovato.%n");
-            addText(Text.S_NO_PERMISSION, "Non hai il permesso di farlo.");
+        void fillDictionary() {
+            addText(Text.S_ENTER_NAME, "Inserisci il tuo nome: \n");
+            addText(Text.S_HELLO, "Ciao, %s\n");
+            addText(Text.S_HAS_JOINED, "%s si è unito.\n");
+            addText(Text.S_LEFT, "%s se n'è andato.\n");
+            addText(Text.S_STATUS_AVAILABLE, "%s - disponibile.\n");
+            addText(Text.S_STATUS_UNAVAILABLE, "%s - non disponibile.\n");
+            addText(Text.S_INVALID_COMMAND, "Comando non valido: \"%s\"\n");
+            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s non è disponibile. aspetta che Alex diventi disponibile.\n");
+            addText(Text.S_PM_SELF_UNAVAILABLE, "Non sei disponibile. Cambia il tuo stato a disponibile.\n");
+            addText(Text.S_CURRENTLY_MUTED, "Sei disattivato, non puoi farlo.\n");
+            addText(Text.S_PM_FROM, "<PM di %s>%s\n");
+            addText(Text.S_IS_NOW_ADMIN, "%s è ora un amministratore.\n");
+            addText(Text.S_IS_NO_LONGER_ADMIN, "%s non è più un amministratore.\n");
+            addText(Text.S_KICKED, "Sei stato preso a calci dalla stanza.\n");
+            addText(Text.S_MUTED, "Sei stato disattivato.\n");
+            addText(Text.S_UNMUTED, "Non sei più disattivato.\n");
+            addText(Text.S_USER_NOT_FOUND, "%s non è stato trovato.\n");
+            addText(Text.S_NO_PERMISSION, "Non hai il permesso di farlo.\n");
             addText(Text.S_COLOR_CHOOSE, "Scegli il tuo colore: ");
-            addText(Text.S_COLOR_INVALID, "Colore non valido");
-            addText(Text.S_LANG_INVALID, "lingua non disponibile");
+            addText(Text.S_COLOR_INVALID, "Colore non valido\n");
+            addText(Text.S_LANG_INVALID, "Lingua non disponibile\n");
+            addText(Text.S_LANG_CHANGED, "Lingua cambiata in %s\n");
             addColor(Color.C_BLACK, "nero");
             addColor(Color.C_RED, "rosso");
             addColor(Color.C_GREEN, "verde");
@@ -127,7 +130,9 @@ public class Languages {
         S_NO_PERMISSION,
         S_COLOR_CHOOSE,
         S_COLOR_INVALID,
-        S_LANG_INVALID
+        S_LANG_INVALID,
+        S_LANG_CHANGED
+
     }
     public enum Color {
         C_BLACK,
@@ -140,14 +145,16 @@ public class Languages {
         C_WHITE
     }
     public static abstract class Language {
+        public final String name;
         private Map<Text, String> textMap;
         private Map<Color, String> colorMap;
         private Map<String, String> colorValuesMap;
-        private Language(){
+        private Language(String name){
+            this.name = name;
             textMap = new HashMap<>();
             colorMap = new HashMap<>();
             colorValuesMap = new HashMap<>();
-            populate();
+            fillDictionary();
             addColorValues();
         }
         public String text(Text key){
@@ -167,7 +174,7 @@ public class Languages {
             return colorValuesMap.get(key);
         }
 
-        abstract void populate();
+        abstract void fillDictionary();
 
         void addText(Text key, String value){
             textMap.put(key, value);
