@@ -12,7 +12,6 @@ import java.net.Socket;
  * as well as configuring new clients that join the chat room
  */
 public class ThreadedServer {
-    private static boolean isDone = false;
     //The port number
     private static final int PORT = 2222;
     //Max number of clients connected at one time
@@ -47,15 +46,30 @@ public class ThreadedServer {
             e.printStackTrace();
         }
 
+        //runs the ClientThread for the server owner
         threads[0] = new ClientThread(null, threads){
             @Override
-            protected void onEnter() throws IOException {
+            protected void onEnter(){
                 setIs(System.in);
                 setOs(System.out);
+                setLang(Languages.en);
                 setClientName("Server");
                 setColor(Colors.PURPLE);
                 promote();
             }
+
+            //methods intentionally left empty, as no one should
+            //mess with the server owner
+            @Override
+            void promote() {}
+            @Override
+            protected void dePromote() {}
+            @Override
+            protected void kick() {}
+            @Override
+            protected void mute() {}
+            @Override
+            protected void unMute() {}
         };
 
         threads[0].start();
