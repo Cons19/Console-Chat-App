@@ -10,6 +10,7 @@ import java.net.Socket;
  * as well as configuring new clients that join the chat room
  */
 public class ThreadedServer {
+    private static boolean isDone = false;
     //The port number
     private static final int PORT = 2222;
     //Max number of clients connected at one time
@@ -21,6 +22,8 @@ public class ThreadedServer {
     //Container class for protocol types and response messages
     final class Protocols{
         static final String EXIT = "exit",
+                            PROMOTE = "promote",
+                            DEPROMOTE = "depromote",
                             MSG_INVALID = "Invalid command";
     }
 

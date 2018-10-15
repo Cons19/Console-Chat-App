@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.function.Consumer;
 
 //TODO: private messages [Razvan, Paul]
 //TODO: online/offline (availability) [Razvan, Paul]
@@ -17,7 +18,7 @@ import java.net.Socket;
 //TODO: login?(MySQL, GearHost)
 //TODO: server can send messages [Marius]
 //TODO: colored messages  [Marius]
-
+//TODO: /help command
 
 /**
  * A thread for a client that joined the server.
@@ -37,10 +38,14 @@ class ClientThread extends Thread {
     //the display name of the client
     private String clientName;
 
+    private boolean isAdmin;
+    private static boolean firstClient = true;
+
     ClientThread(Socket clientSocket, ClientThread[] threads) {
         this.clientSocket = clientSocket;
         this.threads = threads;
         this.maxClientsCount = threads.length;
+        isAdmin = false;
     }
 
     @Override
@@ -65,6 +70,10 @@ class ClientThread extends Thread {
         clientName = is.readLine().trim();
         os.printf("Hello, %s%n", clientName);
         System.out.printf("%s joined.%n", clientName);
+        if (firstClient){
+            this.promote();
+            firstClient = false;
+        }
         //Informs the room about the new client
         synchronized (this) {
             broadcastMessage(String.format("User %s entered the chat room.%n", clientName));
@@ -102,12 +111,16 @@ class ClientThread extends Thread {
     //returns false if the client left the chat
     private boolean parseProtocol(String line) {
         if (line.length() > 0 && line.charAt(0) == '/') {
+            //user typed "/exit"
             if (line.substring(1).equals(Protocols.EXIT)) {
                 return true;
-            } else if (line.substring(1).contains("asd")) {//sampleMethod1();
-
-            } else if (line.substring(1).contains("fgh")) {//sampleMethod2();
-
+            } else if (line.substring(1).startsWith(Protocols.PROMOTE)) {
+                //1 to get to the char after the slash
+                //+ protocol length to get to the char after the protocol word
+                //+1 to get the char after the space that follows the protocol
+                promoteOther(line.substring(1+Protocols.PROMOTE.length()+1));
+            } else if (line.substring(1).startsWith(Protocols.DEPROMOTE)) {
+                dePromoteOther(line.substring(1+Protocols.DEPROMOTE.length()+1));
             } else if (line.substring(1).contains("jkl")) {//sampleMethod3();
 
             } else {//inform the user about the invalid command
@@ -129,8 +142,58 @@ class ClientThread extends Thread {
         }
     }
 
-    //Getters, Setters
-    public String getClientName() {
-        return clientName;
+    private void getCommands(){}
+
+    //promote or depromote the client
+    private void promote() {
+        if (!isAdmin) {
+            isAdmin = true;
+            broadcastMessage(String.format("%s is now an admin.", clientName));
+        }
+    }
+    private void dePromote(){
+        if (isAdmin){
+            isAdmin = false;
+            broadcastMessage(String.format("%s is no longer an admin.", clientName));
+        }
+    }
+
+    //promote or depromote another client
+    private void promoteOther(String clientName){
+        ClientThread clientThread = getClient(clientName);
+        if(clientThread != null){
+            executeAdminCommand(ClientThread::promote, clientThread);
+        }
+    }
+    private void dePromoteOther(String clientName){
+        ClientThread clientThread = getClient(clientName);
+        if(clientThread != null){
+            executeAdminCommand(ClientThread::dePromote, clientThread);
+        }
+    }
+
+    //executes an admin command on a targeted client
+    private void executeAdminCommand(Consumer<ClientThread> command, ClientThread targetClient){
+        //checks if the user executing the command is an admin
+        if (isAdmin){
+            //execute the command (ignore the mindblowing Consumer<T> class)
+            command.accept(targetClient);
+        }
+        else{
+            //client is not an admin
+            os.println("You don't have permission to do that.");
+        }
+    }
+
+    //return the clientThread with that name
+    //or null if the name is not found
+    private ClientThread getClient(String clientName){
+        for (int i = 0; i < maxClientsCount; i++) {
+            if (threads[i] != null && threads[i].clientName.equalsIgnoreCase(clientName)){
+                return threads[i];
+            }
+        }
+        os.printf("User %s not found.%n", clientName);
+        return null;
     }
 }
