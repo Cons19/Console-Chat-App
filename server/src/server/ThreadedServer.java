@@ -42,6 +42,14 @@ public class ThreadedServer {
 
         while (true){
             try {
+                // //print out the clients name
+//                for (int i = 0; i < MAX_CLIENTS; i++) {
+//                    if (threads[i] != null){
+//                        System.out.println("Client: " + i);
+//                        System.out.println(" - " + threads[i].getClientName());
+//                    }
+//                }
+
                 System.out.println("Waiting for a client");
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("found a client");
@@ -64,10 +72,13 @@ public class ThreadedServer {
                     os.close();
                     clientSocket.close();
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+
     }
 
 }

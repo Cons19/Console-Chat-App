@@ -10,14 +10,17 @@ import java.net.Socket;
 import java.util.function.Consumer;
 
 //TODO: private messages [Razvan, Paul]
-//TODO: online/offline (availability) [Razvan, Paul]
-//TODO: block private messages from particular clients
+//TODO: online/offline (availability) [Razvan, Paul] [DONE]
+//TODO: block private messages from particular clients [Razvan, Paul]
 //TODO: filter/censor words [Razvan, Paul]
 //TODO: change clientName [Dragos]
 //TODO: admin client - can kick/mute/promote other clients
 //TODO: login?(MySQL, GearHost)
 //TODO: server can send messages [Marius]
 //TODO: colored messages  [Marius]
+//TODO: EMOJI
+//TODO: names with flag
+
 //TODO: /help command
 
 /**
@@ -37,6 +40,8 @@ class ClientThread extends Thread {
     private int maxClientsCount;
     //the display name of the client
     private String clientName;
+    //the status (available/unavailable) of the client
+    private boolean isAvailable;
     private boolean isAdmin;
     private volatile boolean isJoined;
     private boolean muted;
@@ -71,6 +76,8 @@ class ClientThread extends Thread {
         clientName = is.readLine().trim();
         os.printf("Hello, %s%n", clientName);
         System.out.printf("%s joined.%n", clientName);
+        //change client status to available
+        isAvailable = true;
         if (firstClient){
             promote();
             firstClient = false;
@@ -128,20 +135,38 @@ class ClientThread extends Thread {
                 else try {
                     if (line.substring(1).startsWith(Protocols.PROMOTE)) {
                         promoteOther(line.substring(1 + Protocols.PROMOTE.length() + 1), true);
-                        return;
                     } else if (line.substring(1).startsWith(Protocols.DEPROMOTE)) {
                         promoteOther(line.substring(1 + Protocols.DEPROMOTE.length() + 1), false);
-                        return;
                     } else if (line.substring(1).startsWith(Protocols.KICK)) {
                         kickOther(line.substring(1 + Protocols.KICK.length() + 1));
-                        return;
                     } else if (line.substring(1).startsWith(Protocols.MUTE)) {
                         muteOther(line.substring(1 + Protocols.MUTE.length() + 1), true);
-                        return;
                     } else if (line.substring(1).startsWith(Protocols.UNMUTE)) {
                         muteOther(line.substring(1 + Protocols.UNMUTE.length() + 1), false);
-                        return;
+                    } else if (line.substring(1).contains("currentStatus")) {
+                        if (isAvailable) {
+                            os.println(clientName + " - Current Status is available.");
+                        } else {
+                            os.println(clientName + " - Current Status is unavailable.");
+                        }
+                    } else if (line.substring(1).contains("changeStatus")) {
+                        changeStatus();
+                        if (isAvailable) {
+                            os.println(clientName + " - Status changed to available.");
+                        } else {
+                            os.println(clientName + " - Status changed to unavailable.");
+                        }
+                    } else if (line.substring(1).contains("emoji")) {
+                        os.println(clientName + " - \uD83C\uDDEE\uD83C\uDDF9");
                     }
+//                    else if (line.substring(1).startsWith("PM-") && line.contains(1)) {//sampleMethod3();
+//                        validClientName
+//                        return;
+//                    }
+                    else {
+                        os.printf("%s: \"%s\"%n", Protocols.MSG_INVALID, line);
+                    }
+                    return;
                 } catch (StringIndexOutOfBoundsException ignored) {}
                 os.printf("%s: \"%s\"%n", Protocols.MSG_INVALID, line);
             } else {
@@ -241,13 +266,26 @@ class ClientThread extends Thread {
 
     //return the clientThread with that name
     //or null if the name is not found
-    private ClientThread getClient(String clientName){
+    private ClientThread getClient(String clientName) {
         for (int i = 0; i < maxClientsCount; i++) {
-            if (threads[i] != null && threads[i].clientName.equalsIgnoreCase(clientName)){
+            if (threads[i] != null && threads[i].clientName.equalsIgnoreCase(clientName)) {
                 return threads[i];
             }
         }
         os.printf("User %s not found.%n", clientName);
         return null;
+    }
+    private boolean changeStatus(){
+        if (isAvailable) {
+            isAvailable = false;
+        } else {
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
+
+    //Getters, Setters
+    public String getClientName() {
+        return clientName;
     }
 }
