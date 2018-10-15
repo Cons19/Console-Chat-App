@@ -8,15 +8,15 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
-//TODO: private messages
-//TODO: online/offline (availability)
+//TODO: private messages [Razvan, Paul]
+//TODO: online/offline (availability) [Razvan, Paul]
 //TODO: block private messages from particular clients
-//TODO: filter/censor words
-//TODO: change clientName
+//TODO: filter/censor words [Razvan, Paul]
+//TODO: change clientName [Dragos]
 //TODO: admin client - can kick/mute/promote other clients
 //TODO: login?(MySQL, GearHost)
-//TODO: server can send messages
-//TODO: colored messages
+//TODO: server can send messages [Marius]
+//TODO: colored messages  [Marius]
 
 /**
  * A thread for a client that joined the server.

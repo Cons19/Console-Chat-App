@@ -9,6 +9,7 @@ class ChatClient implements Runnable{
 
     //Server address details
     private static final int PORT = 2222;
+//    private static final String HOST = "25.61.199.172";
     private static final String HOST = "localhost";
 
     //the socket of the client
