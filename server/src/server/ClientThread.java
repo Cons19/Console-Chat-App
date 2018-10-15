@@ -101,21 +101,16 @@ class ClientThread extends Thread {
     //returns false if the client left the chat
     private boolean parseProtocol(String line) {
         if (line.length() > 0 && line.charAt(0) == '/') {
-            switch (line.substring(1)) {
-                case Protocols.EXIT:
-                    return true;
-                case "asd":
-                    //sampleMethod1();
-                    break;
-                case "fgh":
-                    //sampleMethod2();
-                    break;
-                case "jkl":
-                    //sampleMethod3();
-                    break;
-                default:
-                    //inform the user about the invalid command
-                    System.out.printf("%s: %s", Protocols.MSG_INVALID, line);
+            if (line.substring(1).equals(Protocols.EXIT)) {
+                return true;
+            } else if (line.substring(1).contains("asd")) {//sampleMethod1();
+
+            } else if (line.substring(1).contains("fgh")) {//sampleMethod2();
+
+            } else if (line.substring(1).contains("jkl")) {//sampleMethod3();
+
+            } else {//inform the user about the invalid command
+                System.out.printf("%s: %s", Protocols.MSG_INVALID, line);
             }
             return false;
         }
