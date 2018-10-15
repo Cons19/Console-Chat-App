@@ -3,6 +3,7 @@ package server.lang;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("WeakerAccess")
 public class Languages {
     public static final Language en = new Language("EN") {
         @Override
@@ -27,8 +28,9 @@ public class Languages {
             addText(Text.S_NO_PERMISSION, "You don't have permission to do that.\n");
             addText(Text.S_COLOR_CHOOSE, "Choose your color: ");
             addText(Text.S_COLOR_INVALID, "Invalid color\n");
+            addText(Text.S_LANG_CHOOSE, "Choose your language: ");
             addText(Text.S_LANG_INVALID, "Language unavailable\n");
-            addText(Text.S_LANG_CHANGED, "Language changed to %s\n");
+            addText(Text.S_LANG_CHANGED, "Language set to %s\n");
             addColor(Color.C_BLACK, "black");
             addColor(Color.C_RED, "red");
             addColor(Color.C_GREEN, "green");
@@ -42,28 +44,28 @@ public class Languages {
     public static final Language ro = new Language("RO") {
         @Override
         void fillDictionary() {
-            addText(Text.S_ENTER_NAME, "Introduceti numele: \n");
-            addText(Text.S_HELLO, "Buna, %s\n");
+            addText(Text.S_ENTER_NAME, "Introduceți numele dvs: \n");
+            addText(Text.S_HELLO, "Bună, %s\n");
             addText(Text.S_HAS_JOINED, "%s a intrat.\n");
-            addText(Text.S_LEFT, "%s a iesit\n.");
+            addText(Text.S_LEFT, "%s a ieșit\n.");
             addText(Text.S_STATUS_AVAILABLE, "%s - disponibil.\n");
             addText(Text.S_STATUS_UNAVAILABLE, "%s - indisponibil.\n");
-            addText(Text.S_INVALID_COMMAND, "Comanda invalida: \"%s\"\n");
-            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s e indisponibil. Asteptati pana %s devine disponibil.\n");
-            addText(Text.S_PM_SELF_UNAVAILABLE, "Sunteti indisponibil. Schimbati statusul in disponibil.\n");
-            addText(Text.S_CURRENTLY_MUTED, "Sunteti dezactivat, nu puteti face asta.\n");
+            addText(Text.S_INVALID_COMMAND, "Comandă invalidă: \"%s\"\n");
+            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s este indisponibil. Așteptați până %s devine disponibil.\n");
+            addText(Text.S_PM_SELF_UNAVAILABLE, "Sunteți indisponibil. Schimbați statusul în disponibil.\n");
+            addText(Text.S_CURRENTLY_MUTED, "Sunteți dezactivat, nu puteți face asta.\n");
             addText(Text.S_PM_FROM, "<PM de la %s>%s\n");
             addText(Text.S_IS_NOW_ADMIN, "%s este acum admin.\n");
             addText(Text.S_IS_NO_LONGER_ADMIN, "%s nu mai este admin.\n");
-            addText(Text.S_KICKED, "Ati fost dat afara din camera\n.");
-            addText(Text.S_MUTED, "Ati fost dezactivat.\n");
-            addText(Text.S_UNMUTED, "Nu mai sunteti dezactivat.\n");
-            addText(Text.S_USER_NOT_FOUND, "%s nu a fost gasit.\n");
-            addText(Text.S_NO_PERMISSION, "Nu aveti permisiune pentru asta.\n");
-            addText(Text.S_COLOR_CHOOSE, "Alegeti culoarea: ");
-            addText(Text.S_COLOR_INVALID, "Culoare indisponibila\n");
-            addText(Text.S_LANG_INVALID, "Limba indisponibila\n");
-            addText(Text.S_LANG_CHANGED, "Limba s-a schimbat in %s\n");
+            addText(Text.S_KICKED, "Ați fost dat afară din cameră.\n");
+            addText(Text.S_MUTED, "Ați fost dezactivat.\n");
+            addText(Text.S_UNMUTED, "Nu mai sunteți dezactivat.\n");
+            addText(Text.S_USER_NOT_FOUND, "%s nu a fost găsit.\n");
+            addText(Text.S_NO_PERMISSION, "Nu aveți permisiune pentru asta.\n");
+            addText(Text.S_COLOR_CHOOSE, "Alegeți culoarea: ");
+            addText(Text.S_COLOR_INVALID, "Culoare indisponibilă\n");
+            addText(Text.S_LANG_INVALID, "Limbă indisponibilă\n");
+            addText(Text.S_LANG_CHANGED, "Limba stabilită în %s\n");
             addColor(Color.C_BLACK, "negru");
             addColor(Color.C_RED, "rosu");
             addColor(Color.C_GREEN, "verde");
@@ -84,7 +86,7 @@ public class Languages {
             addText(Text.S_STATUS_AVAILABLE, "%s - disponibile.\n");
             addText(Text.S_STATUS_UNAVAILABLE, "%s - non disponibile.\n");
             addText(Text.S_INVALID_COMMAND, "Comando non valido: \"%s\"\n");
-            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s non è disponibile. aspetta che Alex diventi disponibile.\n");
+            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s non è disponibile. Aspetta che Alex diventi disponibile.\n");
             addText(Text.S_PM_SELF_UNAVAILABLE, "Non sei disponibile. Cambia il tuo stato a disponibile.\n");
             addText(Text.S_CURRENTLY_MUTED, "Sei disattivato, non puoi farlo.\n");
             addText(Text.S_PM_FROM, "<PM di %s>%s\n");
@@ -109,6 +111,48 @@ public class Languages {
             addColor(Color.C_WHITE, "bianca");
         }
     };
+    public static final Language dk = new Language("DK") {
+        @Override
+        void fillDictionary() {
+            addText(Text.S_ENTER_NAME, "Indtast dit navn: \n");
+            addText(Text.S_HELLO, "Hej, %s\n");
+            addText(Text.S_HAS_JOINED, "%s er kommet ind.\n");
+            addText(Text.S_LEFT, "%s har forladt.\n");
+            addText(Text.S_STATUS_AVAILABLE, "%s - tilgængelig.\n");
+            addText(Text.S_STATUS_UNAVAILABLE, "%s - utilgængelig.\n");
+            addText(Text.S_INVALID_COMMAND, "Ugyldig kommando: \"%s\"\n");
+            addText(Text.S_PM_TARGET_UNAVAILABLE, "%s er ikke tilgængelig. Vent indtil Alex bliver tilgængelig.\n");
+            addText(Text.S_PM_SELF_UNAVAILABLE, "Du er ikke tilgængelig. Skift din status til tilgængelig.\n");
+            addText(Text.S_CURRENTLY_MUTED, "Du er dæmpet, du kan ikke gøre det.\n");
+            addText(Text.S_PM_FROM, "<PM fra %s>%s\n");
+            addText(Text.S_IS_NOW_ADMIN, "%s er nu en admin.\n");
+            addText(Text.S_IS_NO_LONGER_ADMIN, "%s er ikke længere admin.\n");
+            addText(Text.S_KICKED, "Du er blevet sparket fra værelset.\n");
+            addText(Text.S_MUTED, "Du er blevet dæmpet.\n");
+            addText(Text.S_UNMUTED, "Du er ikke længere dæmpet.\n");
+            addText(Text.S_USER_NOT_FOUND, "%s blev ikke fundet.\n");
+            addText(Text.S_NO_PERMISSION, "Du har ikke tilladelse til at gøre det.\n");
+            addText(Text.S_COLOR_CHOOSE, "Vælg din farve: ");
+            addText(Text.S_COLOR_INVALID, "Ugyldig farve\n");
+            addText(Text.S_LANG_INVALID, "Sprog utilgængelig\n");
+            addText(Text.S_LANG_CHANGED, "Sprog indstillet til %s\n");
+            addColor(Color.C_BLACK, "sort");
+            addColor(Color.C_RED, "rod");
+            addColor(Color.C_GREEN, "gron");
+            addColor(Color.C_YELLOW, "gul");
+            addColor(Color.C_BLUE, "bla");
+            addColor(Color.C_PURPLE, "lilla");
+            addColor(Color.C_CYAN, "cyan");
+            addColor(Color.C_WHITE, "hvid");
+        }
+    };
+    public static final Map<String, Language> all = new HashMap<>();
+    static {
+        all.put(en.name, en);
+        all.put(ro.name, ro);
+        all.put(it.name, it);
+        all.put(dk.name, dk);
+    }
     public enum Text {
         S_ENTER_NAME,
         S_HELLO,
@@ -130,6 +174,7 @@ public class Languages {
         S_NO_PERMISSION,
         S_COLOR_CHOOSE,
         S_COLOR_INVALID,
+        S_LANG_CHOOSE,
         S_LANG_INVALID,
         S_LANG_CHANGED
 
