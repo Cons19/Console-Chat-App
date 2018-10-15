@@ -1,6 +1,7 @@
 package server;
 
 import server.ThreadedServer.Protocols;
+import server.lang.Languages;
 
 import java.io.*;
 import java.net.Socket;
@@ -8,19 +9,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import static server.lang.Languages.Color.*;
+import static server.lang.Languages.Text.*;
+
 //DONE: private messages [Razvan, Paul]
 //DONE: online/offline (availability) [Razvan, Paul] [DONE]
 //TODO: block private messages from particular clients [Razvan, Paul]
 //TODO: filter/censor words [Razvan, Paul]
 //TODO: change clientName [Dragos]
 //DONE: admin client - can kick/mute/promote other clients
-//REFUSED BY CLIENTS: login?(MySQL, GearHost)
+//REFUSED: login?(MySQL, GearHost)
 //DONE: server can send messages [Marius]
 //DONE: colored messages  [Marius]
 //TODO: EMOJI [Razvan, Paul]
 //TODO: names with country flag [Razvan, Paul]
 //TODO: /help command [Dragos]
-//TODO: support for Italian [Marius if has time and wants to]
+//DONE: support for Italian [Marius if has time and wants to]
+//DONE: support for Romanian [Marius if has time and wants to]
 //TODO: Italian welcomming for user name "Andrea" [Razvan, Paul]
 
 
@@ -47,23 +52,10 @@ class ClientThread extends Thread {
     private volatile boolean isJoined;
     private boolean isMuted;
     private String color;
-    static class Colors {
+    private Languages.Language ln;
+    class Colors {
         static final String RESET = "\u001B[0m";
         static final String PURPLE = "\u001B[35m";
-        static Map<String, String> colorMap = new HashMap<>();
-        static {
-            colorMap.put("black", "\u001B[30m");
-            colorMap.put("red", "\u001B[31m");
-            colorMap.put("green", "\u001B[32m");
-            colorMap.put("yellow", "\u001B[33m");
-            colorMap.put("blue", "\u001B[34m");
-//            colorMap.put("purple", "\u001B[35m");
-            colorMap.put("cyan", "\u001B[36m");
-            colorMap.put("white", "\u001B[37m");
-        }
-        static String get(String colorName){
-            return colorMap.get(colorName);
-        }
     }
 
     ClientThread(Socket clientSocket, ClientThread[] threads) {
@@ -72,8 +64,11 @@ class ClientThread extends Thread {
         this.maxClientsCount = threads.length;
         this.isAdmin = false;
         this.isJoined = true;
+        this.isMuted = false;
         //change client status to available
         this.isAvailable = true;
+        this.ln = Languages.it;
+
     }
 
     @Override
@@ -93,13 +88,13 @@ class ClientThread extends Thread {
         is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         os = new PrintStream(clientSocket.getOutputStream());
         //Asks the client for a display name
-        os.println("Enter your name: ");
+        os.println(ln.text(S_ENTER_NAME));//S_ENTER_NAME
         clientName = is.readLine().trim();
-        os.printf("Hello, %s%n", clientName);
+        os.printf(ln.text(S_HELLO), clientName);//S_HELLO
         colorPrompt();
         //Informs the room about the new client
         synchronized (this) {
-            broadcastMessage(String.format("%s joined.", clientName));
+            broadcastMessage(String.format(ln.text(S_HAS_JOINED), clientName));//S_HAS_JOINED
         }
     }
 
@@ -115,7 +110,7 @@ class ClientThread extends Thread {
 
     private void onLeave() {
         isJoined = false;
-        broadcastMessage(String.format("%s left.", clientName));
+        broadcastMessage(String.format(ln.text(S_LEFT), clientName));//S_LEFT
         os.println(Protocols.BYE);
 
         synchronized (this) {
@@ -139,8 +134,9 @@ class ClientThread extends Thread {
     private void parseProtocol(String line) {
         if (line.length() > 0) {
             if (line.charAt(0) == '/') {
+                String command = line.substring(1);
                 //user typed "/exit"
-                if (line.substring(1).equals(Protocols.EXIT)) {
+                if (command.equals(Protocols.EXIT)) {
                     onLeave();
                     return;
                 }
@@ -148,48 +144,35 @@ class ClientThread extends Thread {
                 //+ protocol length to get to the char after the protocol word
                 //+1 to get the char after the space that follows the protocol
                 else try {
-                    if (line.substring(1).startsWith(Protocols.PROMOTE)) {
-                        promoteOther(line.substring(1 + Protocols.PROMOTE.length() + 1), true);
-                    } else if (line.substring(1).startsWith(Protocols.DEPROMOTE)) {
-                        promoteOther(line.substring(1 + Protocols.DEPROMOTE.length() + 1), false);
-                    } else if (line.substring(1).startsWith(Protocols.KICK)) {
-                        kickOther(line.substring(1 + Protocols.KICK.length() + 1));
-                    } else if (line.substring(1).startsWith(Protocols.MUTE)) {
-                        muteOther(line.substring(1 + Protocols.MUTE.length() + 1), true);
-                    } else if (line.substring(1).startsWith(Protocols.UNMUTE)) {
-                        muteOther(line.substring(1 + Protocols.UNMUTE.length() + 1), false);
-                    } else if (line.substring(1).contains("currentStatus")) {
-                        if (isAvailable) {
-                            os.println(clientName + " - Current Status is available.");
-                        } else {
-                            os.println(clientName + " - Current Status is unavailable.");
-                        }
-                    } else if (line.substring(1).contains("changeStatus")) {
-                        changeStatus();
-                        if (isAvailable) {
-                            os.println(clientName + " - Status changed to available.");
-                        } else {
-                            os.println(clientName + " - Status changed to unavailable.");
-                        }
-                    } else if (line.substring(1).contains("emoji")) {
-                        os.println(clientName + " - \uD83C\uDDEE\uD83C\uDDF9");
-                    } else if (line.substring(1).contains(Protocols.CURRENT_STATUS)) {
+                    if (command.startsWith(Protocols.LANG)) {
+                        changeLanguage(command.substring(Protocols.LANG.length() + 1));
+                    } else if (command.startsWith(Protocols.PROMOTE)) {
+                        promoteOther(command.substring(Protocols.PROMOTE.length() + 1), true);
+                    } else if (command.startsWith(Protocols.DEPROMOTE)) {
+                        promoteOther(command.substring(Protocols.DEPROMOTE.length() + 1), false);
+                    } else if (command.startsWith(Protocols.KICK)) {
+                        kickOther(command.substring(Protocols.KICK.length() + 1));
+                    } else if (command.startsWith(Protocols.MUTE)) {
+                        muteOther(command.substring(Protocols.MUTE.length() + 1), true);
+                    } else if (command.startsWith(Protocols.UNMUTE)) {
+                        muteOther(command.substring(Protocols.UNMUTE.length() + 1), false);
+                    } else if (command.startsWith(Protocols.CURRENT_STATUS)) {
                         showStatus();
-                    } else if (line.substring(1).contains(Protocols.CHANGE_STATUS)) {
+                    } else if (command.startsWith(Protocols.CHANGE_STATUS)) {
                         changeStatus();
                         showStatus();
-                    } else if (line.substring(1).contains(Protocols.EMOJI)) {
+                    } else if (command.startsWith(Protocols.EMOJI)) {
 //                TODO: to implement 3-5 emoji's, especially the ITALIAN FLAG
 //                showEmoji(type);
                         os.println(clientName + " - \uD83C\uDDEE\uD83C\uDDF9");
-                    } else if (line.substring(1).contains(Protocols.PRIVATE_MESSAGE)) {
+                    } else if (command.startsWith(Protocols.PM)) {
                         privateMessage(line);
                     } else {
-                        os.printf("%s: \"%s\"%n", Protocols.MSG_INVALID, line);
+                        os.printf(ln.text(S_INVALID_COMMAND), line);//S_INVALID_COMMAND
                     }
                     return;
                 } catch (StringIndexOutOfBoundsException ignored) {}
-                os.printf("%s: \"%s\"%n", Protocols.MSG_INVALID, line);
+                os.printf(ln.text(S_INVALID_COMMAND), line);//S_INVALID_COMMAND
             } else {
                 //send the normal message to the chat room
                 broadcastMessage(String.format("%s<%s> %s%s", color, clientName, line, Colors.RESET));
@@ -198,14 +181,14 @@ class ClientThread extends Thread {
     }
 
 
-//    extract paramethers (targetClientName, message) to use in broadcastPrivateMessage method
+    //    extract paramethers (targetClientName, message) to use in broadcastPrivateMessage method
     private void privateMessage(String line) {
         //Example: "/PM R: hello, R"
         boolean client1Available = false;
         boolean client2Available = false;
 
-        os.println(clientName + " - " + line.substring(1+"PM".length()+1));
-        String targetClientName = line.substring(1+"PM".length()+1, line.indexOf(":"));
+        os.println(clientName + " - " + line.substring(1+Protocols.PM.length()+1));
+        String targetClientName = line.substring(1+Protocols.PM.length()+1, line.indexOf(":"));
         String message = line.substring(line.indexOf(":") + 1);
 
 //      check is both clients have an available status, if so broadcast the message between them.
@@ -221,19 +204,19 @@ class ClientThread extends Thread {
             if (client2Available) {
                 broadcastPrivateMessage(clientName, targetClientName, message);
             } else {
-                os.println(targetClientName + " is unavailable. Wait until " + targetClientName + " becomes available.");
+                os.printf(ln.text(S_PM_TARGET_UNAVAILABLE), targetClientName, targetClientName);//S_PM_TARGET_UNAVAILABLE
             }
         } else {
-            os.println(clientName + " is unavailable. Change status to available.");
+            os.println(ln.text(S_PM_SELF_UNAVAILABLE)); //S_PM_SELF_UNAVAILABLE
         }
     }
 
     //Show Current Status of the client
     private void showStatus() {
-        if (isAvailable == true) {
-            os.println(clientName + " - Current Status is available.");
+        if (isAvailable) {
+            os.printf(ln.text(S_STATUS_AVAILABLE), clientName);//S_STATUS_AVAILABLE
         } else {
-            os.println(clientName + " - Current Status is unavailable.");
+            os.printf(ln.text(S_STATUS_UNAVAILABLE), clientName);//S_STATUS_UNAVAILABLE
         }
     }
 
@@ -247,7 +230,7 @@ class ClientThread extends Thread {
             }
         }
         else{
-            os.println("You are muted, you cannot do that.");
+            os.println(ln.text(S_CURRENTLY_MUTED));//S_CURRENTLY_MUTED
         }
     }
 
@@ -255,7 +238,7 @@ class ClientThread extends Thread {
     private void broadcastPrivateMessage(String clientName, String targetClientName, String line) {
         for (int i = 0; i < maxClientsCount; i++) {
             if (threads[i] !=null && threads[i].getClientName().equals(targetClientName)) {
-                threads[i].os.println("<PM from " + clientName + ">" + line);
+                threads[i].os.printf(ln.text(S_PM_FROM), clientName, line); //S_PM_FROM
             }
         }
     }
@@ -266,30 +249,30 @@ class ClientThread extends Thread {
     void promote() {
         if (!isAdmin) {
             isAdmin = true;
-            broadcastMessage(String.format("%s is now an admin.", clientName));
+            broadcastMessage(String.format(ln.text(S_IS_NOW_ADMIN), clientName));//S_IS_NOW_ADMIN
         }
     }
     private void dePromote(){
         if (isAdmin){
             isAdmin = false;
-            broadcastMessage(String.format("%s is no longer an admin.", clientName));
+            broadcastMessage(String.format(ln.text(S_IS_NO_LONGER_ADMIN), clientName));//S_IS_NO_LONGER_ADMIN
         }
     }
     private void kick(){
-        os.println("You have been kicked from the room.");
+        os.println(ln.text(S_KICKED));//S_KICKED
         onLeave();
     }
     private void mute(){
         if (!isMuted) {
             isMuted = true;
-            os.println("You have been muted.");
+            os.println();//S_MUTED
 
         }
     }
     private void unMute(){
         if (isMuted) {
             isMuted = false;
-            os.println("You are no longer muted.");
+            os.println(ln.text(S_UNMUTED));//S_UNMUTED
 
         }
     }
@@ -330,7 +313,7 @@ class ClientThread extends Thread {
         }
         else{
             //client is not an admin
-            os.println("You don't have permission to do that.");
+            os.println(ln.text(S_NO_PERMISSION));//S_NO_PERMISSION
         }
     }
 
@@ -342,16 +325,29 @@ class ClientThread extends Thread {
                 return threads[i];
             }
         }
-        os.printf("User %s not found.%n", clientName);
+        os.printf(ln.text(S_USER_NOT_FOUND), clientName); //S_USER_NOT_FOUND
         return null;
     }
-    private boolean changeStatus(){
-        if (isAvailable) {
-            isAvailable = false;
-        } else {
-            isAvailable = true;
+    private void changeStatus(){
+        isAvailable = !isAvailable;
+    }
+    private void colorPrompt() throws IOException {
+        StringBuilder colorMessage = new StringBuilder();
+        colorMessage.append(ln.text(S_COLOR_CHOOSE)); //S_COLOR_CHOOSE
+        for (Languages.Color colorKey : Languages.Color.values()) {
+            colorMessage.append(ln.colorValue(colorKey))
+                    .append(ln.color(colorKey).toUpperCase())
+                    .append(' ');
         }
-        return isAvailable;
+        colorMessage.append(Colors.RESET);
+        os.println(colorMessage);
+        do {
+            String input = is.readLine().toLowerCase();
+            setColor(ln.colorValue(input));
+            if (color == null){
+                os.println(ln.text(S_COLOR_INVALID));//S_COLOR_INVALID
+            }
+        }while (color == null);
     }
 
     //Getters, Setters
@@ -371,36 +367,43 @@ class ClientThread extends Thread {
         if (color != null)
             this.color = color;
     }
-    void colorPrompt() throws IOException {
-        //for testing only
-//        os = System.out;
-//        is = new BufferedReader(new InputStreamReader(System.in));
-        //
-        StringBuilder colorMessage = new StringBuilder();
-        colorMessage.append("Choose your color: ");
-        for (String colorKey : Colors.colorMap.keySet()) {
-            colorMessage.append(Colors.colorMap.get(colorKey)).append(colorKey.toUpperCase()).append(' ');
+    void setLang(Languages.Language lang){
+        if (this.ln != null && lang != null && lang != this.ln){
+            ln = lang;
         }
-        colorMessage.append(Colors.RESET);
-        os.println(colorMessage);
-        do {
-            String input = is.readLine().toLowerCase();
-            color = Colors.get(input);
-            if (color == null){
-                os.println("Invalid option");
-            }
-        }while (color == null);
     }
 
-    public String getClientName() {
+    private void changeLanguage(String substring) {
+        switch (substring){
+            case "en": case "english":
+                ln = Languages.en;
+                break;
+            case "ro": case "romanian":
+                ln = Languages.ro;
+                break;
+            case "it": case "italian":
+                ln = Languages.it;
+                break;
+            default:
+                os.println(ln.text(S_LANG_INVALID));//S_LANG_INVALID
+        }
+    }
+
+    private String getClientName() {
         return clientName;
     }
 
-    public boolean isAvailable() {
-        if (isAvailable == true) {
-            return true;
-        } else {
-            return false;
+    private boolean isAvailable() {
+        return isAvailable;
+    }
+
+    private class Output{
+        private PrintStream printStream;
+
+        Output(PrintStream printstream){
+            this.printStream = printstream;
         }
+
+
     }
 }

@@ -1,5 +1,7 @@
 package server;
 
+import server.lang.Languages;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -21,18 +23,20 @@ public class ThreadedServer {
     private static ServerSocket serverSocket;
     //Container class for protocol types and response messages
     final class Protocols{
-        static final String EXIT = "exit",
-                            PROMOTE = "promote",
-                            DEPROMOTE = "depromote",
-                            KICK = "kick",
-                            MUTE = "mute",
-                            UNMUTE = "unmute",
-                            BYE = "bye",
-                            MSG_INVALID = "Invalid command",
-                            CURRENT_STATUS = "currentStatus",
-                            CHANGE_STATUS = "changeStatus",
-                            EMOJI = "emoji",
-                            PRIVATE_MESSAGE = "PM";
+        static final String
+                EXIT = "exit",
+                PROMOTE = "promote",
+                DEPROMOTE = "depromote",
+                KICK = "kick",
+                MUTE = "mute",
+                UNMUTE = "unmute",
+                COLOR = "color",
+                LANG = "lang",
+                BYE = "bye",
+                CURRENT_STATUS = "currentStatus",
+                CHANGE_STATUS = "changeStatus",
+                EMOJI = "emoji",
+                PM = "pm";
     }
 
     //main Server thread
@@ -49,8 +53,9 @@ public class ThreadedServer {
                 setIs(System.in);
                 setOs(System.out);
                 setClientName("Server");
-                promote();
                 setColor(Colors.PURPLE);
+                setLang(Languages.en);
+                promote();
             }
         };
 
@@ -83,8 +88,5 @@ public class ThreadedServer {
                 e.printStackTrace();
             }
         }
-
-
     }
-
 }
