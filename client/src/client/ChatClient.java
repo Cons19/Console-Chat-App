@@ -4,24 +4,30 @@ import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+//The actual client side that establishes a connection to the server
 class ChatClient implements Runnable{
 
+    //Server address details
     private static final int PORT = 2222;
     private static final String HOST = "localhost";
 
+    //the socket of the client
     private static Socket clientSocket;
+    //the output stream received from the server
     private static PrintStream os;
-    private static DataInputStream is;
-
+    //the input stream sent to the server
+    private static BufferedReader is;
+    //the input entered by the user
     private static BufferedReader inputLine;
     private static boolean closed = false;
 
     public static void main(String[] args) {
         try {
+            //initialisation of the client
             clientSocket = new Socket(HOST, PORT);
             inputLine = new BufferedReader(new InputStreamReader(System.in));
             os = new PrintStream(clientSocket.getOutputStream());
-            is = new DataInputStream(clientSocket.getInputStream());
+            is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         } catch (UnknownHostException e) {
             System.err.println("Unknown host: " + HOST);
         } catch (IOException e){
@@ -29,11 +35,14 @@ class ChatClient implements Runnable{
         }
 
         if (clientSocket != null && os != null && is != null){
+            //starts a thread of the client if the initialisation succeeded
             try {
                 new Thread(new ChatClient()).start();
+                //sent user input while the client is open
                 while (!closed){
                     os.println(inputLine.readLine().trim());
                 }
+                //close the streams and the socket when the client leaves the room
                 os.close();
                 is.close();
                 clientSocket.close();
@@ -43,14 +52,15 @@ class ChatClient implements Runnable{
         }
     }
 
+    //Thread that processes messages from the server and/or other clients
     @Override
     public void run() {
-        String responseLine;
-
         try {
+            String responseLine;
             while ((responseLine = is.readLine()) != null) {
                 System.out.println(responseLine);
-                if (responseLine.contains("Bye")){
+                //if the server send a message that contains "Bye", close the connection
+                if (responseLine.startsWith("Bye")){
                     closed = true;
                     break;
                 }

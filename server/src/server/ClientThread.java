@@ -114,10 +114,12 @@ class ClientThread extends Thread {
                     //sampleMethod3();
                     break;
                 default:
+                    //inform the user about the invalid command
                     System.out.printf("%s: %s", Protocols.MSG_INVALID, line);
             }
             return false;
         }
+        //send the normal message to the chat room
         broadcastMessage(String.format("<%s> %s", clientName, line));
         return false;
     }
