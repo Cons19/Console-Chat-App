@@ -14,23 +14,32 @@ import java.net.Socket;
 //TODO: filter/censor words
 //TODO: change clientName
 //TODO: admin client - can kick/mute/promote other clients
+//TODO: login?(MySQL, GearHost)
+//TODO: server can send messages
+//TODO: colored messages
+
+/**
+ * A thread for a client that joined the server.
+ * Broadcasts the user input to all other clients, and processes
+ * different commands sent by the user (using the forward slash, '/')
+ */
 class ClientThread extends Thread {
+    //input and output streams
     private BufferedReader is;
     private PrintStream os;
+    //the socket
     private Socket clientSocket;
+    //the clients array populated by the server
     private final ClientThread[] threads;
+    //the max number of clients, normally the length of the aforementioned array
     private int maxClientsCount;
-
-    public String getClientName() {
-        return clientName;
-    }
-
+    //the display name of the client
     private String clientName;
 
     ClientThread(Socket clientSocket, ClientThread[] threads) {
         this.clientSocket = clientSocket;
         this.threads = threads;
-        maxClientsCount = threads.length;
+        this.maxClientsCount = threads.length;
     }
 
     @Override
@@ -38,7 +47,6 @@ class ClientThread extends Thread {
         try {
             onEnter();
             processInput();
-            broadcastMessage("User " + clientName + " left the chat room.");
             onLeave();
 
         } catch (IOException e) {
@@ -46,7 +54,35 @@ class ClientThread extends Thread {
         }
     }
 
+    //actions performed after the client successfully joined the chat room
+    private void onEnter() throws IOException {
+        //sets the input and output streams
+        is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        os = new PrintStream(clientSocket.getOutputStream());
+        //Asks the client for a display name
+        os.println("Enter your name: ");
+        clientName = is.readLine().trim();
+        os.printf("Hello, %s%n", clientName);
+        System.out.printf("%s joined.%n", clientName);
+        //Informs the room about the new client
+        synchronized (this) {
+            broadcastMessage(String.format("User %s entered the chat room.%n", clientName));
+        }
+    }
+
+    //Processes the protocol of the message
+    private void processInput() throws IOException {
+        synchronized (this) {
+            while (true) {
+                String line = is.readLine();
+                //parseProtocol returns false if the user typed the exit command
+                if (parseProtocol(line)) break;
+            }
+        }
+    }
+
     private void onLeave() throws IOException {
+        broadcastMessage(String.format("User %s left the chat room.", clientName));
         os.println("Bye, " + clientName + "!");
 
         synchronized (this) {
@@ -60,16 +96,6 @@ class ClientThread extends Thread {
         is.close();
         os.close();
         clientSocket.close();
-    }
-
-    private void processInput() throws IOException {
-        synchronized (this) {
-            while (true) {
-                String line = is.readLine();
-                if (parseProtocol(line)) break;
-                broadcastMessage("<" + clientName + "> " + line);
-            }
-        }
     }
 
     //returns false if the client left the chat
@@ -88,12 +114,15 @@ class ClientThread extends Thread {
                     //sampleMethod3();
                     break;
                 default:
-                    System.out.println(Protocols.MSG_INVALID);
+                    System.out.printf("%s: %s", Protocols.MSG_INVALID, line);
             }
+            return false;
         }
+        broadcastMessage(String.format("<%s> %s", clientName, line));
         return false;
     }
 
+    //Sends the message to all clients
     private void broadcastMessage(String line) {
         for (int i = 0; i < maxClientsCount; i++) {
             if (threads[i] != null) {
@@ -102,24 +131,8 @@ class ClientThread extends Thread {
         }
     }
 
-    private void onEnter() throws IOException {
-        is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        os = new PrintStream(clientSocket.getOutputStream());
-        System.out.println("Asking for name");
-        os.println("Enter your name: ");
-        clientName = is.readLine().trim();
-        os.println("Hello, " + clientName);
-        synchronized (this) {
-            for (int i = 0; i < maxClientsCount; i++) {
-                if (threads[i] != null && threads[i] != this) {
-                    threads[i].os.println("User " + clientName + " entered the chat room.");
-                }
-            }
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "ClientThread";
+    //Getters, Setters
+    public String getClientName() {
+        return clientName;
     }
 }
