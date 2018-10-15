@@ -10,4 +10,12 @@ public class ClientThreadTest {
     public void setColor() throws IOException {
         new ClientThread(null, new ClientThread[0]).colorPrompt();
     }
+
+    @Test
+    public void emoji(){
+        StringBuffer sb = new StringBuffer();
+        sb.append(Character.toChars(127467));
+        sb.append(Character.toChars(127479));
+        System.out.println(sb);
+    }
 }
