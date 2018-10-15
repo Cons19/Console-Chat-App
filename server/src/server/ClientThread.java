@@ -74,24 +74,23 @@ class ClientThread extends Thread {
 
     //returns false if the client left the chat
     private boolean parseProtocol(String line) {
-        if (line.equals(Protocols.EXIT)) {
-            return true;
-        }
-        else if (line.equals("sal")){
-            return false;
-        }
         if (line.length() > 0 && line.charAt(0) == '/') {
             switch (line.substring(1)) {
                 case Protocols.EXIT:
                     return true;
                 case "asd":
+                    //sampleMethod1();
+                    break;
+                case "fgh":
+                    //sampleMethod2();
+                    break;
+                case "jkl":
+                    //sampleMethod3();
                     break;
                 default:
                     System.out.println(Protocols.MSG_INVALID);
             }
         }
-
-
         return false;
     }
 
