@@ -46,9 +46,10 @@ public class ThreadedServer {
                 setOs(System.out);
                 setClientName("Server");
                 promote();
+                setColor(Colors.PURPLE);
+                this.start();
             }
         };
-        threads[0].start();
 
         while (threads[0] != null){
             try {

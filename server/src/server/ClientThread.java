@@ -1,10 +1,11 @@
 package server;
 
-import jdk.internal.util.xml.impl.Input;
 import server.ThreadedServer.Protocols;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 //TODO: private messages [Razvan, Paul]
@@ -15,11 +16,11 @@ import java.util.function.Consumer;
 //DONE: admin client - can kick/mute/promote other clients
 //TODO: login?(MySQL, GearHost)
 //DONE: server can send messages [Marius]
-//TODO: colored messages  [Marius]
+//DONE: colored messages  [Marius]
 //TODO: EMOJI
-//TODO: names with flag
-
+//TODO: names with country flag
 //TODO: /help command
+//TODO: support for Italian
 
 /**
  * A thread for a client that joined the server.
@@ -43,6 +44,25 @@ class ClientThread extends Thread {
     private boolean isAdmin;
     private volatile boolean isJoined;
     private boolean isMuted;
+    private String color;
+    static class Colors {
+        static final String RESET = "\u001B[0m";
+        static final String PURPLE = "\u001B[35m";
+        static Map<String, String> colorMap = new HashMap<>();
+        static {
+            colorMap.put("black", "\u001B[30m");
+            colorMap.put("red", "\u001B[31m");
+            colorMap.put("green", "\u001B[32m");
+            colorMap.put("yellow", "\u001B[33m");
+            colorMap.put("blue", "\u001B[34m");
+//            colorMap.put("purple", "\u001B[35m");
+            colorMap.put("cyan", "\u001B[36m");
+            colorMap.put("white", "\u001B[37m");
+        }
+        static String get(String colorName){
+            return colorMap.get(colorName);
+        }
+    }
 
     ClientThread(Socket clientSocket, ClientThread[] threads) {
         this.clientSocket = clientSocket;
@@ -74,6 +94,7 @@ class ClientThread extends Thread {
         os.println("Enter your name: ");
         clientName = is.readLine().trim();
         os.printf("Hello, %s%n", clientName);
+        colorPrompt();
         //Informs the room about the new client
         synchronized (this) {
             broadcastMessage(String.format("%s joined.", clientName));
@@ -151,19 +172,11 @@ class ClientThread extends Thread {
                     } else if (line.substring(1).contains("emoji")) {
                         os.println(clientName + " - \uD83C\uDDEE\uD83C\uDDF9");
                     }
-//                    else if (line.substring(1).startsWith("PM-") && line.contains(1)) {//sampleMethod3();
-//                        validClientName
-//                        return;
-//                    }
-                    else {
-                        os.printf("%s: \"%s\"%n", Protocols.MSG_INVALID, line);
-                    }
-                    return;
                 } catch (StringIndexOutOfBoundsException ignored) {}
                 os.printf("%s: \"%s\"%n", Protocols.MSG_INVALID, line);
             } else {
                 //send the normal message to the chat room
-                broadcastMessage(String.format("<%s> %s", clientName, line));
+                broadcastMessage(String.format("%s<%s> %s%s", color, clientName, line, Colors.RESET));
             }
         }
     }
@@ -288,6 +301,30 @@ class ClientThread extends Thread {
     void setClientName(String clientName) {
         if (this.clientName == null)
             this.clientName = clientName;
+    }
+    void setColor(String color){
+        if (color != null)
+            this.color = color;
+    }
+    void colorPrompt() throws IOException {
+        //for testing only
+//        os = System.out;
+//        is = new BufferedReader(new InputStreamReader(System.in));
+        //
+        StringBuilder colorMessage = new StringBuilder();
+        colorMessage.append("Choose your color: ");
+        for (String colorKey : Colors.colorMap.keySet()) {
+            colorMessage.append(Colors.colorMap.get(colorKey)).append(colorKey.toUpperCase()).append(' ');
+        }
+        colorMessage.append(Colors.RESET);
+        os.println(colorMessage);
+        do {
+            String input = is.readLine().toLowerCase();
+            color = Colors.get(input);
+            if (color == null){
+                os.println("Invalid option");
+            }
+        }while (color == null);
     }
 
     public String getClientName() {
