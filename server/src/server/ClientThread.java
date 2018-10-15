@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 //TODO: block private messages from particular clients [Razvan, Paul]
 //TODO: filter/censor words [Razvan, Paul]
 //TODO: change clientName [Dragos]
-//TODO: admin client - can kick/mute/promote other clients
+//DONE: admin client - can kick/mute/promote other clients
 //TODO: login?(MySQL, GearHost)
 //TODO: server can send messages [Marius]
 //TODO: colored messages  [Marius]
@@ -44,7 +44,7 @@ class ClientThread extends Thread {
     private boolean isAvailable;
     private boolean isAdmin;
     private volatile boolean isJoined;
-    private boolean muted;
+    private boolean isMuted;
     private static boolean firstClient = true;
 
     ClientThread(Socket clientSocket, ClientThread[] threads) {
@@ -178,7 +178,7 @@ class ClientThread extends Thread {
 
     //Sends the message to all clients
     private void broadcastMessage(String line) {
-        if (!muted) {
+        if (!isMuted) {
             for (int i = 0; i < maxClientsCount; i++) {
                 if (threads[i] != null) {
                     threads[i].os.println(line);
@@ -210,15 +210,15 @@ class ClientThread extends Thread {
         onLeave();
     }
     private void mute(){
-        if (!muted) {
-            muted = true;
+        if (!isMuted) {
+            isMuted = true;
             os.println("You have been muted.");
 
         }
     }
     private void unMute(){
-        if (muted) {
-            muted = false;
+        if (isMuted) {
+            isMuted = false;
             os.println("You are no longer muted.");
 
         }
