@@ -37,15 +37,17 @@ class ClientThread extends Thread {
     private int maxClientsCount;
     //the display name of the client
     private String clientName;
-
     private boolean isAdmin;
+    private volatile boolean isJoined;
+    private boolean muted;
     private static boolean firstClient = true;
 
     ClientThread(Socket clientSocket, ClientThread[] threads) {
         this.clientSocket = clientSocket;
         this.threads = threads;
         this.maxClientsCount = threads.length;
-        isAdmin = false;
+        this.isAdmin = false;
+        this.isJoined = true;
     }
 
     @Override
@@ -53,7 +55,6 @@ class ClientThread extends Thread {
         try {
             onEnter();
             processInput();
-            onLeave();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,29 +72,29 @@ class ClientThread extends Thread {
         os.printf("Hello, %s%n", clientName);
         System.out.printf("%s joined.%n", clientName);
         if (firstClient){
-            this.promote();
+            promote();
             firstClient = false;
         }
         //Informs the room about the new client
         synchronized (this) {
-            broadcastMessage(String.format("User %s entered the chat room.%n", clientName));
+            broadcastMessage(String.format("User %s entered the chat room.", clientName));
         }
     }
 
     //Processes the protocol of the message
     private void processInput() throws IOException {
         synchronized (this) {
-            while (true) {
+            while (isJoined) {
                 String line = is.readLine();
-                //parseProtocol returns false if the user typed the exit command
-                if (parseProtocol(line)) break;
+                parseProtocol(line);
             }
         }
     }
 
-    private void onLeave() throws IOException {
+    private void onLeave() {
+        isJoined = false;
         broadcastMessage(String.format("User %s left the chat room.", clientName));
-        os.println("Bye, " + clientName + "!");
+        os.println(Protocols.BYE);
 
         synchronized (this) {
             for (int i = 0; i < maxClientsCount; i++) {
@@ -103,42 +104,64 @@ class ClientThread extends Thread {
             }
         }
 
-        is.close();
-        os.close();
-        clientSocket.close();
+        try {
+            is.close();
+            os.close();
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //returns false if the client left the chat
-    private boolean parseProtocol(String line) {
-        if (line.length() > 0 && line.charAt(0) == '/') {
-            //user typed "/exit"
-            if (line.substring(1).equals(Protocols.EXIT)) {
-                return true;
-            } else if (line.substring(1).startsWith(Protocols.PROMOTE)) {
+    private void parseProtocol(String line) {
+        if (line.length() > 0) {
+            if (line.charAt(0) == '/') {
+                //user typed "/exit"
+                if (line.substring(1).equals(Protocols.EXIT)) {
+                    onLeave();
+                    return;
+                }
                 //1 to get to the char after the slash
                 //+ protocol length to get to the char after the protocol word
                 //+1 to get the char after the space that follows the protocol
-                promoteOther(line.substring(1+Protocols.PROMOTE.length()+1));
-            } else if (line.substring(1).startsWith(Protocols.DEPROMOTE)) {
-                dePromoteOther(line.substring(1+Protocols.DEPROMOTE.length()+1));
-            } else if (line.substring(1).contains("jkl")) {//sampleMethod3();
-
-            } else {//inform the user about the invalid command
-                System.out.printf("%s: %s", Protocols.MSG_INVALID, line);
+                else try {
+                    if (line.substring(1).startsWith(Protocols.PROMOTE)) {
+                        promoteOther(line.substring(1 + Protocols.PROMOTE.length() + 1), true);
+                        return;
+                    } else if (line.substring(1).startsWith(Protocols.DEPROMOTE)) {
+                        promoteOther(line.substring(1 + Protocols.DEPROMOTE.length() + 1), false);
+                        return;
+                    } else if (line.substring(1).startsWith(Protocols.KICK)) {
+                        kickOther(line.substring(1 + Protocols.KICK.length() + 1));
+                        return;
+                    } else if (line.substring(1).startsWith(Protocols.MUTE)) {
+                        muteOther(line.substring(1 + Protocols.MUTE.length() + 1), true);
+                        return;
+                    } else if (line.substring(1).startsWith(Protocols.UNMUTE)) {
+                        muteOther(line.substring(1 + Protocols.UNMUTE.length() + 1), false);
+                        return;
+                    }
+                } catch (StringIndexOutOfBoundsException ignored) {}
+                os.printf("%s: \"%s\"%n", Protocols.MSG_INVALID, line);
+            } else {
+                //send the normal message to the chat room
+                broadcastMessage(String.format("<%s> %s", clientName, line));
             }
-            return false;
         }
-        //send the normal message to the chat room
-        broadcastMessage(String.format("<%s> %s", clientName, line));
-        return false;
     }
 
     //Sends the message to all clients
     private void broadcastMessage(String line) {
-        for (int i = 0; i < maxClientsCount; i++) {
-            if (threads[i] != null) {
-                threads[i].os.println(line);
+        if (!muted) {
+            for (int i = 0; i < maxClientsCount; i++) {
+                if (threads[i] != null) {
+                    threads[i].os.println(line);
+                }
             }
+        }
+        else{
+            os.println("You are muted, you cannot do that.");
         }
     }
 
@@ -157,18 +180,49 @@ class ClientThread extends Thread {
             broadcastMessage(String.format("%s is no longer an admin.", clientName));
         }
     }
+    private void kick(){
+        os.println("You have been kicked from the room.");
+        onLeave();
+    }
+    private void mute(){
+        if (!muted) {
+            muted = true;
+            os.println("You have been muted.");
 
-    //promote or depromote another client
-    private void promoteOther(String clientName){
-        ClientThread clientThread = getClient(clientName);
-        if(clientThread != null){
-            executeAdminCommand(ClientThread::promote, clientThread);
         }
     }
-    private void dePromoteOther(String clientName){
+    private void unMute(){
+        if (muted) {
+            muted = false;
+            os.println("You are no longer muted.");
+
+        }
+    }
+    //promote or depromote another client
+    private void promoteOther(String clientName, boolean asAdmin){
         ClientThread clientThread = getClient(clientName);
         if(clientThread != null){
-            executeAdminCommand(ClientThread::dePromote, clientThread);
+            if (asAdmin) {
+                executeAdminCommand(ClientThread::promote, clientThread);
+            }
+            else {
+                executeAdminCommand(ClientThread::dePromote, clientThread);
+            }
+        }
+    }
+    private void kickOther(String clientName){
+        ClientThread clientThread = getClient(clientName);
+        if (clientThread != null && clientThread != this){
+            executeAdminCommand(ClientThread::kick, clientThread);
+        }
+    }
+    private void muteOther(String clientName, boolean mute){
+        ClientThread clientThread = getClient(clientName);
+        if (clientThread != null && clientThread != this){
+            if (mute)
+                executeAdminCommand(ClientThread::mute, clientThread);
+            else
+                executeAdminCommand(ClientThread::unMute, clientThread);
         }
     }
 

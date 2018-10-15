@@ -24,6 +24,10 @@ public class ThreadedServer {
         static final String EXIT = "exit",
                             PROMOTE = "promote",
                             DEPROMOTE = "depromote",
+                            KICK = "kick",
+                            MUTE = "mute",
+                            UNMUTE = "unmute",
+                            BYE = "bye",
                             MSG_INVALID = "Invalid command";
     }
 

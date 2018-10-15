@@ -59,11 +59,12 @@ class ChatClient implements Runnable{
         try {
             String responseLine;
             while ((responseLine = is.readLine()) != null) {
-                System.out.println(responseLine);
-                //if the server send a message that contains "Bye", close the connection
-                if (responseLine.startsWith("Bye")){
+                if (responseLine.equals("bye")){
                     closed = true;
                     break;
+                }
+                else {
+                    System.out.println(responseLine);
                 }
             }
         } catch (IOException e) {
