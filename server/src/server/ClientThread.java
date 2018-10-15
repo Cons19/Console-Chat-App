@@ -8,19 +8,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-//TODO: private messages [Razvan, Paul]
-//TODO: online/offline (availability) [Razvan, Paul] [DONE]
+//DONE: private messages [Razvan, Paul]
+//DONE: online/offline (availability) [Razvan, Paul] [DONE]
 //TODO: block private messages from particular clients [Razvan, Paul]
 //TODO: filter/censor words [Razvan, Paul]
 //TODO: change clientName [Dragos]
 //DONE: admin client - can kick/mute/promote other clients
-//TODO: login?(MySQL, GearHost)
+//REFUSED BY CLIENTS: login?(MySQL, GearHost)
 //DONE: server can send messages [Marius]
 //DONE: colored messages  [Marius]
-//TODO: EMOJI
-//TODO: names with country flag
-//TODO: /help command
-//TODO: support for Italian
+//TODO: EMOJI [Razvan, Paul]
+//TODO: names with country flag [Razvan, Paul]
+//TODO: /help command [Dragos]
+//TODO: support for Italian [Marius if has time and wants to]
+//TODO: Italian welcomming for user name "Andrea" [Razvan, Paul]
+
 
 /**
  * A thread for a client that joined the server.

@@ -16,6 +16,7 @@ public class ClientThreadTest {
         StringBuffer sb = new StringBuffer();
         sb.append(Character.toChars(127467));
         sb.append(Character.toChars(127479));
-        System.out.println(sb);
+        System.out.println("👍");
+        System.out.println("\uD83C\uDDEE\uD83C\uDDF9");
     }
 }
