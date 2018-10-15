@@ -18,6 +18,7 @@ import java.net.Socket;
 //TODO: server can send messages [Marius]
 //TODO: colored messages  [Marius]
 
+
 /**
  * A thread for a client that joined the server.
  * Broadcasts the user input to all other clients, and processes
