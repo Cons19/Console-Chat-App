@@ -1,11 +1,9 @@
 package server;
 
+import jdk.internal.util.xml.impl.Input;
 import server.ThreadedServer.Protocols;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.function.Consumer;
 
@@ -16,7 +14,7 @@ import java.util.function.Consumer;
 //TODO: change clientName [Dragos]
 //DONE: admin client - can kick/mute/promote other clients
 //TODO: login?(MySQL, GearHost)
-//TODO: server can send messages [Marius]
+//DONE: server can send messages [Marius]
 //TODO: colored messages  [Marius]
 //TODO: EMOJI
 //TODO: names with flag
@@ -45,7 +43,6 @@ class ClientThread extends Thread {
     private boolean isAdmin;
     private volatile boolean isJoined;
     private boolean isMuted;
-    private static boolean firstClient = true;
 
     ClientThread(Socket clientSocket, ClientThread[] threads) {
         this.clientSocket = clientSocket;
@@ -53,6 +50,8 @@ class ClientThread extends Thread {
         this.maxClientsCount = threads.length;
         this.isAdmin = false;
         this.isJoined = true;
+        //change client status to available
+        this.isAvailable = true;
     }
 
     @Override
@@ -67,7 +66,7 @@ class ClientThread extends Thread {
     }
 
     //actions performed after the client successfully joined the chat room
-    private void onEnter() throws IOException {
+    protected void onEnter() throws IOException {
         //sets the input and output streams
         is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         os = new PrintStream(clientSocket.getOutputStream());
@@ -75,16 +74,9 @@ class ClientThread extends Thread {
         os.println("Enter your name: ");
         clientName = is.readLine().trim();
         os.printf("Hello, %s%n", clientName);
-        System.out.printf("%s joined.%n", clientName);
-        //change client status to available
-        isAvailable = true;
-        if (firstClient){
-            promote();
-            firstClient = false;
-        }
         //Informs the room about the new client
         synchronized (this) {
-            broadcastMessage(String.format("User %s entered the chat room.", clientName));
+            broadcastMessage(String.format("%s joined.", clientName));
         }
     }
 
@@ -100,7 +92,7 @@ class ClientThread extends Thread {
 
     private void onLeave() {
         isJoined = false;
-        broadcastMessage(String.format("User %s left the chat room.", clientName));
+        broadcastMessage(String.format("%s left.", clientName));
         os.println(Protocols.BYE);
 
         synchronized (this) {
@@ -117,7 +109,7 @@ class ClientThread extends Thread {
             clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } catch (NullPointerException ignored){}
     }
 
     //returns false if the client left the chat
@@ -193,7 +185,7 @@ class ClientThread extends Thread {
     private void getCommands(){}
 
     //promote or depromote the client
-    private void promote() {
+    void promote() {
         if (!isAdmin) {
             isAdmin = true;
             broadcastMessage(String.format("%s is now an admin.", clientName));
@@ -285,6 +277,19 @@ class ClientThread extends Thread {
     }
 
     //Getters, Setters
+    void setIs(InputStream is) {
+        if (this.is == null)
+            this.is = new BufferedReader(new InputStreamReader(is));
+    }
+    void setOs(PrintStream os) {
+        if (this.os == null)
+            this.os = os;
+    }
+    void setClientName(String clientName) {
+        if (this.clientName == null)
+            this.clientName = clientName;
+    }
+
     public String getClientName() {
         return clientName;
     }

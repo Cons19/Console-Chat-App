@@ -34,25 +34,25 @@ public class ThreadedServer {
     //main Server thread
     public static void main(String[] args) {
         try {
-            System.out.println("Creating server socket");
             serverSocket = new ServerSocket(PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        while (true){
-            try {
-                // //print out the clients name
-//                for (int i = 0; i < MAX_CLIENTS; i++) {
-//                    if (threads[i] != null){
-//                        System.out.println("Client: " + i);
-//                        System.out.println(" - " + threads[i].getClientName());
-//                    }
-//                }
+        threads[0] = new ClientThread(null, threads){
+            @Override
+            protected void onEnter() throws IOException {
+                setIs(System.in);
+                setOs(System.out);
+                setClientName("Server");
+                promote();
+            }
+        };
+        threads[0].start();
 
-                System.out.println("Waiting for a client");
+        while (threads[0] != null){
+            try {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("found a client");
                 //loops through the threads array, adding the new client
                 //to the first empty element found
                 int i;
