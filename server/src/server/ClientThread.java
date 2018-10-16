@@ -18,7 +18,7 @@ import static server.lang.Languages.Text.*;
 //DENIED: login?(MySQL, GearHost)
 //DONE: server can send messages [Marius]
 //DONE: colored messages  [Marius]
-//TODO: EMOJI [Razvan, Paul]
+//TODO: EMOJI [Razvan, Paul] -
 //TODO: names with country flag [Razvan, Paul] - merge into the it/ro TODO? almost same thing
 //TODO: /help command [Dragos]
 //DONE: support for Italian [Marius if has time and wants to]
@@ -162,9 +162,7 @@ class ClientThread extends Thread {
                         changeStatus();
                         showStatus();
                     } else if (command.startsWith(Protocols.EMOJI)) {
-//                TODO: to implement 3-5 emoji's, especially the ITALIAN FLAG
-//                showEmoji(type);
-                        os.println(clientName + " - \uD83C\uDDEE\uD83C\uDDF9");
+                        showEmoji(line);
                     } else if (command.startsWith(Protocols.PM)) {
                         privateMessage(line);
                     } else if (command.startsWith(Protocols.HELP)){
@@ -183,10 +181,9 @@ class ClientThread extends Thread {
         }
     }
 
-
     //extract parameters (targetClientName, message) to use in broadcastPrivateMessage method
     private void privateMessage(String line) {
-        //Example: "/PM R: hello, R"
+        //Example: "/pm R: hello, R"
         boolean client1Available = false;
         boolean client2Available = false;
 
@@ -220,6 +217,31 @@ class ClientThread extends Thread {
             os.printf(ln.text(S_STATUS_AVAILABLE), clientName);//S_STATUS_AVAILABLE
         } else {
             os.printf(ln.text(S_STATUS_UNAVAILABLE), clientName);//S_STATUS_UNAVAILABLE
+        }
+    }
+
+    private void showEmoji(String line) {
+        // Example: /emoji smile -> message is "smile"
+        String message = line.substring(line.indexOf(" ") + 1);
+
+        if (message.equals(":)") || message.equals("clown")){
+            broadcastMessage("🤡");
+        }else if (message.equals(":D")){
+            broadcastMessage("\uD83D\uDE00");
+        }else if (message.equals("laugh")){
+            broadcastMessage("\uD83D\uDE02");
+        }else if (message.equals("sleeping")){
+            broadcastMessage("\uD83D\uDE34");
+        }else if (message.equals("santa")){
+            broadcastMessage("\uD83C\uDF85");
+        }else if (message.equals("gandalf")){
+            broadcastMessage("\uD83E\uDDD9️");
+        }else if (message.equals("genie")){
+            broadcastMessage("\uD83E\uDDDE");
+        }else if (message.equals("cool")){
+            broadcastMessage("\uD83D\uDE0E");
+        }else if (message.equals("smiling")){
+            broadcastMessage("\uD83D\uDE01️");
         }
     }
 
