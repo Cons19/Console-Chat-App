@@ -19,7 +19,7 @@ import static server.lang.Languages.Text.*;
 //DONE: server can send messages [Marius]
 //DONE: colored messages  [Marius]
 //DONE: EMOJI [Razvan, Paul] -
-//DENIED: names with country flag [Razvan, Paul] - merge into the it/ro TODO? almost same thing
+//DENIED: names with country flag [Razvan, Paul] - merge into the it/ro
 //DONE: /help command [Dragos]
 //DONE: support for Italian [Marius if has time and wants to]
 //DONE: support for Romanian [Marius if has time and wants to]
@@ -33,7 +33,7 @@ import static server.lang.Languages.Text.*;
  */
 @SuppressWarnings({"RedundantStringFormatCall", "SameParameterValue"})
 class ClientThread extends Thread {
-    private static final String GOD = "ANDREAS";
+    private static final String GOD = "ANDREA";
     //input and output streams
     private BufferedReader is;
     private PrintStream os;
@@ -259,7 +259,7 @@ class ClientThread extends Thread {
         if (!isMuted) {
             for (int i = 0; i < maxClientsCount; i++) {
                 if (threads[i] != null) {
-                    threads[i].os.printf("%s<%s> %s%s%n", color, clientName, line, Colors.RESET);
+                    threads[i].os.printf("%s<%s-%s> %s%s%n", color, clientName, ln.name, line, Colors.RESET);
                 }
             }
         }
