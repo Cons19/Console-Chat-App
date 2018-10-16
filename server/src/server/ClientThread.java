@@ -11,16 +11,16 @@ import static server.lang.Languages.Text.*;
 
 //DONE: private messages [Razvan, Paul]
 //DONE: online/offline (availability) [Razvan, Paul] [DONE]
-//TODO: block private messages from particular clients [Razvan, Paul]
-//TODO: filter/censor words [Razvan, Paul]
+//DENIED: block private messages from particular clients [Razvan, Paul]
+//DENIED: filter/censor words [Razvan, Paul]
 //TODO: change clientName [Dragos]
 //DONE: admin client - can kick/mute/promote other clients
 //DENIED: login?(MySQL, GearHost)
 //DONE: server can send messages [Marius]
 //DONE: colored messages  [Marius]
-//TODO: EMOJI [Razvan, Paul] -
-//TODO: names with country flag [Razvan, Paul] - merge into the it/ro TODO? almost same thing
-//TODO: /help command [Dragos]
+//DONE: EMOJI [Razvan, Paul] -
+//DENIED: names with country flag [Razvan, Paul] - merge into the it/ro TODO? almost same thing
+//DONE: /help command [Dragos]
 //DONE: support for Italian [Marius if has time and wants to]
 //DONE: support for Romanian [Marius if has time and wants to]
 //DONE: Italian welcoming for user name "Andrea" [Razvan, Paul]
@@ -281,15 +281,15 @@ class ClientThread extends Thread {
     private void getCommands(){
         os.println("Chat commands");
         os.println();
-        os.println("/exit - Quits the chat app");
-        os.println("/promote - Admin can promote somebody to admin status");
-        os.println("/depromote - Admin can remove admin rights");
-        os.println("/kick - Admin can kick somebody from the chat app");
-        os.println("/mute - Admin can mute somebody in the chat app");
-        os.println("/unmute - Admin can unmute somebody in the chat app");
-        os.println("/PM ClientName:Message - Send a private message to the ClientName");
-        os.println("/color blue/green/red etc - Changes your font color to blue/green/red etc");
-        os.println("/help - Displays chat commands");
+        os.println("/exit                       - Quits the chat app");
+        os.println("/promote                    - Admin can promote somebody to admin status");
+        os.println("/depromote                  - Admin can remove admin rights");
+        os.println("/kick                       - Admin can kick somebody from the chat app");
+        os.println("/mute                       - Admin can mute somebody in the chat app");
+        os.println("/unmute                     - Admin can unmute somebody in the chat app");
+        os.println("/PM ClientName:Message      - Send a private message to the ClientName");
+        os.println("/color blue/green/red etc   - Changes your font color to blue/green/red etc");
+        os.println("/help                       - Displays chat commands");
     }
 
     //promote or depromote the client
