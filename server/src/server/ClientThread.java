@@ -167,7 +167,10 @@ class ClientThread extends Thread {
                         os.println(clientName + " - \uD83C\uDDEE\uD83C\uDDF9");
                     } else if (command.startsWith(Protocols.PM)) {
                         privateMessage(line);
-                    } else {
+                    } else if (command.startsWith(Protocols.HELP)){
+                        getCommands();
+                    }
+                    else {
                         os.printf(ln.text(S_INVALID_COMMAND), line);//S_INVALID_COMMAND
                     }
                     return;
@@ -252,7 +255,20 @@ class ClientThread extends Thread {
         }
     }
 
-    private void getCommands(){}
+
+    private void getCommands(){
+        os.println("Chat commands");
+        os.println();
+        os.println("/exit - Quits the chat app");
+        os.println("/promote - Admin can promote somebody to admin status");
+        os.println("/depromote - Admin can remove admin rights");
+        os.println("/kick - Admin can kick somebody from the chat app");
+        os.println("/mute - Admin can mute somebody in the chat app");
+        os.println("/unmute - Admin can unmute somebody in the chat app");
+        os.println("/PM ClientName:Message - Send a private message to the ClientName");
+        os.println("/color blue/green/red etc - Changes your font color to blue/green/red etc");
+        os.println("/help - Displays chat commands");
+    }
 
     //promote or depromote the client
     void promote() {

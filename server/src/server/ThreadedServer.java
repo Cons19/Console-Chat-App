@@ -35,7 +35,9 @@ public class ThreadedServer {
                 CURRENT_STATUS = "currentStatus",
                 CHANGE_STATUS = "changeStatus",
                 EMOJI = "emoji",
-                PM = "pm";
+                PM = "pm",
+                HELP = "help";
+
     }
 
     //main Server thread
