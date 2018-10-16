@@ -36,7 +36,8 @@ public class ThreadedServer {
                 CHANGE_STATUS = "changeStatus",
                 EMOJI = "emoji",
                 PM = "pm",
-                HELP = "help";
+                HELP = "help",
+                NAME = "name";
 
     }
 

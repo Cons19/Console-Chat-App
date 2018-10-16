@@ -10,10 +10,10 @@ import java.util.function.Consumer;
 import static server.lang.Languages.Text.*;
 
 //DONE: private messages [Razvan, Paul]
-//DONE: online/offline (availability) [Razvan, Paul] [DONE]
+//DONE: online/offline (availability) [Razvan, Paul]
 //DENIED: block private messages from particular clients [Razvan, Paul]
 //DENIED: filter/censor words [Razvan, Paul]
-//TODO: change clientName [Dragos]
+//DONE: change clientName [Dragos]
 //DONE: admin client - can kick/mute/promote other clients
 //DENIED: login?(MySQL, GearHost)
 //DONE: server can send messages [Marius]
@@ -167,8 +167,11 @@ class ClientThread extends Thread {
                         privateMessage(line);
                     } else if (command.startsWith(Protocols.HELP)){
                         getCommands();
-                    }
-                    else {
+                    } else if (command.startsWith(Protocols.NAME)) {
+                        String newName = command.substring(5);
+                        os.println(getClientName() + " changed to " + newName);
+                        setClientName(newName);
+                    } else {
                         os.printf(ln.text(S_INVALID_COMMAND), line);//S_INVALID_COMMAND
                     }
                     return;
@@ -289,6 +292,7 @@ class ClientThread extends Thread {
         os.println("/unmute                     - Admin can unmute somebody in the chat app");
         os.println("/PM ClientName:Message      - Send a private message to the ClientName");
         os.println("/color blue/green/red etc   - Changes your font color to blue/green/red etc");
+        os.println("/name Newname               - Change current name to Newname");
         os.println("/help                       - Displays chat commands");
     }
 
@@ -417,14 +421,16 @@ class ClientThread extends Thread {
             this.os = os;
     }
     void setClientName(String clientName) {
-        if (this.clientName == null) {
-            this.clientName = clientName;
-            if (this.clientName.equalsIgnoreCase(GOD)){
-                this.clientName = GOD;
-                setLang(Languages.it);
-                promote();
-            }
+
+        this.clientName = clientName;
+
+        if (this.clientName.equalsIgnoreCase(GOD)) {
+            this.clientName = GOD;
+            setLang(Languages.it);
+            promote();
         }
+
+
     }
     void setColor(String color){
         if (color != null)
