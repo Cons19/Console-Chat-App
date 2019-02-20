@@ -63,8 +63,8 @@ public class ThreadedServer {
 
             //methods intentionally left empty, as no one should
             //mess with the server owner
-            @Override
-            void promote() {}
+            //@Override
+            //void promote() {}
             @Override
             protected void dePromote() {}
             @Override

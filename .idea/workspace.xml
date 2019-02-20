@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5f3ea68a-8db0-46ea-bcb1-4e95af1cd174" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/mand1-chatting-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mand1-chatting-app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatting_app_client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/chatting_app_client.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatting_app_server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/chatting_app_server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/client/ChatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/client/ChatClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/server/ClientThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/server/ClientThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/server/ThreadedServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/server/ThreadedServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/server/lang/Languages.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/server/lang/Languages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test/server/ClientThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/test/server/ClientThreadTest.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/server/out/" />
+    <manually-removed-from-ignored>
+      <directory path=".idea/" />
+    </manually-removed-from-ignored>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/server/ThreadedServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+              <folding>
+                <element signature="docComment;class#ThreadedServer#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/client/ChatClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="34" column="32" lean-forward="true" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Arquillian JUnit Test Class" />
+        <option value="JUnit4 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>maxClientsCount</find>
+      <find>getMaxClientsCount</find>
+      <find>full</find>
+      <find>entered</find>
+      <find>entered the</find>
+      <find>S_USER_NOT_FOUND</find>
+      <find>println</find>
+      <find>print</find>
+      <find>S_COLOR_CHOOSE</find>
+      <find>%n</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>getMaxClientsCount()</replace>
+      <replace>print</replace>
+      <replace>printf</replace>
+      <replace>\n</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/client/src/client/Main.java" />
+        <option value="$PROJECT_DIR$/server/src/server/Main.java" />
+        <option value="$PROJECT_DIR$/server/src/server/Server.java" />
+        <option value="$PROJECT_DIR$/client/src/client/ClientSocket.java" />
+        <option value="$PROJECT_DIR$/client/src/client/ChatClient.java" />
+        <option value="$PROJECT_DIR$/server/src/server/ClientThreadTest.java" />
+        <option value="$PROJECT_DIR$/server/src/server/Languages.java" />
+        <option value="$PROJECT_DIR$/server/test/server/ClientThreadTest.java" />
+        <option value="$PROJECT_DIR$/server/src/server/lang/Languages.java" />
+        <option value="$PROJECT_DIR$/server/src/server/ClientThread.java" />
+        <option value="$PROJECT_DIR$/server/src/server/ThreadedServer.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="mand1" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="chatting_app_client" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+            </path>
+            <path>
+              <item name="mand1" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="chatting_app_server" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Chatting App project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chatting App project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chatting App project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chatting App project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chatting App project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chatting App project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ChangesTree.GroupingKeys" value="module&#10;directory" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549099816378" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/client/src/client" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="server" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="client" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="server" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.ChatClient">
+    <configuration name="ChatClient" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.ChatClient" />
+      <module name="chatting_app_client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThreadedServer" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.ThreadedServer" />
+      <module name="chatting_app_server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="server.lang.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClientThreadTest.emoji" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="chatting_app_server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="server.lang.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="server" />
+      <option name="MAIN_CLASS_NAME" value="server.ClientThreadTest" />
+      <option name="METHOD_NAME" value="emoji" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClientThreadTest.setColor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="chatting_app_server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="server.lang.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="server" />
+      <option name="MAIN_CLASS_NAME" value="server.ClientThreadTest" />
+      <option name="METHOD_NAME" value="setColor" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.ChatClient" />
+      <item itemvalue="Application.ThreadedServer" />
+      <item itemvalue="JUnit.ClientThreadTest.emoji" />
+      <item itemvalue="JUnit.ClientThreadTest.setColor" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ThreadedServer" />
+        <item itemvalue="JUnit.ClientThreadTest.emoji" />
+        <item itemvalue="JUnit.ClientThreadTest.setColor" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5f3ea68a-8db0-46ea-bcb1-4e95af1cd174" name="Default Changelist" comment="" />
+      <created>1539506790914</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1539506790914</updated>
+      <workItem from="1539506792572" duration="252000" />
+      <workItem from="1539507450858" duration="1017000" />
+      <workItem from="1539508904730" duration="370000" />
+      <workItem from="1539509513131" duration="14000" />
+      <workItem from="1539509773480" duration="8983000" />
+      <workItem from="1539585697392" duration="41468000" />
+      <workItem from="1539636786531" duration="4148000" />
+      <workItem from="1539682433685" duration="2973000" />
+      <workItem from="1539687479042" duration="689000" />
+      <workItem from="1539694860343" duration="65000" />
+      <workItem from="1539859457367" duration="2921000" />
+      <workItem from="1540554733339" duration="139000" />
+      <workItem from="1540554951061" duration="204000" />
+      <workItem from="1540555221418" duration="112000" />
+      <workItem from="1541332822361" duration="802000" />
+      <workItem from="1546613578427" duration="152000" />
+      <workItem from="1548683693717" duration="780000" />
+      <workItem from="1548926888501" duration="813000" />
+    </task>
+    <task id="LOCAL-00001" summary="removed unwanted files">
+      <created>1539507889665</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1539507889665</updated>
+    </task>
+    <task id="LOCAL-00002" summary="initial commit">
+      <created>1539509921787</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1539509921787</updated>
+    </task>
+    <task id="LOCAL-00003" summary="version 0.1">
+      <created>1539516009698</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1539516009698</updated>
+    </task>
+    <task id="LOCAL-00004" summary="extracted ClientThread to own .java">
+      <created>1539516069538</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1539516069538</updated>
+    </task>
+    <task id="LOCAL-00005" summary="mini fixes">
+      <created>1539518148287</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1539518148287</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fixed redundant protocol checking">
+      <created>1539586548419</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1539586548419</updated>
+    </task>
+    <task id="LOCAL-00007" summary="comments, small code cleanup">
+      <created>1539591889989</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1539591889989</updated>
+    </task>
+    <task id="LOCAL-00008" summary="comments, small code cleanup">
+      <created>1539591942208</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1539591942208</updated>
+    </task>
+    <task id="LOCAL-00009" summary="comments, small code cleanup">
+      <created>1539593350575</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1539593350575</updated>
+    </task>
+    <task id="LOCAL-00010" summary="replaced switch statement with if-else block">
+      <created>1539594222359</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1539594222359</updated>
+    </task>
+    <task id="LOCAL-00011" summary="added admin client capabilities">
+      <created>1539599159325</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1539599159325</updated>
+    </task>
+    <task id="LOCAL-00012" summary="added kick/mute/promote commands&#10;reworked parseProtocol()">
+      <created>1539603345647</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1539603345647</updated>
+    </task>
+    <task id="LOCAL-00013" summary="finalized TODO">
+      <created>1539604036193</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1539604036193</updated>
+    </task>
+    <task id="LOCAL-00014" summary="finalized TODO for server chatting">
+      <created>1539605456787</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1539605456787</updated>
+    </task>
+    <task id="LOCAL-00015" summary="finalized TODO for colored messages">
+      <created>1539610343578</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1539610343578</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fixed bug">
+      <created>1539612281355</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1539612281355</updated>
+    </task>
+    <task id="LOCAL-00017" summary="emoji test">
+      <created>1539613145318</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1539613145318</updated>
+    </task>
+    <task id="LOCAL-00018" summary="added multilanguage support, as well as /lang command to change language">
+      <created>1539623559932</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1539623559932</updated>
+    </task>
+    <task id="LOCAL-00019" summary="added message about language change, language name field, special treatment for anyone called Andreas&#10;fixed foreign language status messages displaying on other clients' chat, added newline at the end of (almost) every localised message string,">
+      <created>1539631439447</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1539631439447</updated>
+    </task>
+    <task id="LOCAL-00020" summary="made the owner client thread less susceptible to external changes (aka other admins cannot mute/kick/depromote the owner)">
+      <created>1539640698790</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1539640698790</updated>
+    </task>
+    <task id="LOCAL-00021" summary="added romanian diacritics, a hashmap with all the languages, the Danish language and a message for choosing a language">
+      <created>1539640815794</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1539640815794</updated>
+    </task>
+    <task id="LOCAL-00022" summary="asks the client for a language before joining a room, optimised language choosing">
+      <created>1539640929267</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1539640929267</updated>
+    </task>
+    <task id="LOCAL-00023" summary="added country language besides client name">
+      <created>1539688053798</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1539688053798</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="ClientThreadTest_setColor - 2018.10.15 at 15h 11m 00s.xml">
+      <configuration name="ClientThreadTest.setColor" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ClientThreadTest_setColor - 2018.10.15 at 15h 13m 29s.xml">
+      <configuration name="ClientThreadTest.setColor" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ClientThreadTest_setColor - 2018.10.15 at 15h 17m 41s.xml">
+      <configuration name="ClientThreadTest.setColor" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ClientThreadTest_setColor - 2018.10.15 at 15h 18m 10s.xml">
+      <configuration name="ClientThreadTest.setColor" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ClientThreadTest_emoji - 2018.10.15 at 16h 16m 59s.xml">
+      <configuration name="ClientThreadTest.emoji" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="65847000" />
+  </component>
+  <component name="TodoView" selected-index="4">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2267525" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
+      <window_info anchor="bottom" x="32" y="386" width="1322" height="283" id="Run" order="2" weight="0.5072289" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.20655738" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3295082" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.3295082" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3295082" />
+      <window_info anchor="bottom" id="Thumbnails" order="11" weight="0.3295082" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32786885" />
+      <window_info anchor="bottom" id="Metrics" order="13" visible="true" weight="0.32891566" />
+      <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
+      <window_info anchor="right" id="Maven" order="9" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="removed unwanted files" />
+    <MESSAGE value="initial commit" />
+    <MESSAGE value="version 0.1" />
+    <MESSAGE value="extracted ClientThread to own .java" />
+    <MESSAGE value="mini fixes" />
+    <MESSAGE value="fixed redundant protocol checking" />
+    <MESSAGE value="comments, small code cleanup" />
+    <MESSAGE value="replaced switch statement with if-else block" />
+    <MESSAGE value="added admin client capabilities" />
+    <MESSAGE value="added kick/mute/promote commands&#10;reworked parseProtocol()" />
+    <MESSAGE value="finalized TODO" />
+    <MESSAGE value="finalized TODO for server chatting" />
+    <MESSAGE value="finalized TODO for colored messages" />
+    <MESSAGE value="fixed bug" />
+    <MESSAGE value="emoji test" />
+    <MESSAGE value="added multilanguage support, as well as /lang command to change language" />
+    <MESSAGE value="added message about language change, language name field, special treatment for anyone called Andreas&#10;fixed foreign language status messages displaying on other clients' chat, added newline at the end of (almost) every localised message string," />
+    <MESSAGE value="made the owner client thread less susceptible to external changes (aka other admins cannot mute/kick/depromote the owner)" />
+    <MESSAGE value="added romanian diacritics, a hashmap with all the languages, the Danish language and a message for choosing a language" />
+    <MESSAGE value="asks the client for a language before joining a room, optimised language choosing" />
+    <MESSAGE value="added country language besides client name" />
+    <option name="LAST_COMMIT_MESSAGE" value="added country language besides client name" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/server/src/server/Server.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/io/DataInputStream.java" />
+    <entry file="file://$PROJECT_DIR$/client/src/client/ClientSocket.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/lang/FunctionalInterface.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/lang/String.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/util/function/Consumer.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/net/ServerSocket.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/net/Socket.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/awt/Color.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/util/HashMap.java" />
+    <entry file="file://$PROJECT_DIR$/server/src/server/ClientThreadTest.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jboss/arquillian/test/arquillian-test-spi/1.4.0.Final/arquillian-test-spi-1.4.0.Final.jar!/org/jboss/arquillian/test/spi/annotation/TestScoped.class" />
+    <entry file="file://$PROJECT_DIR$/server/src/server/Language.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/lang/System.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/io/PrintStream.java" />
+    <entry file="file://$PROJECT_DIR$/server/test/server/ClientThreadTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_172/src.zip!/java/util/Map.java" />
+    <entry file="file://$PROJECT_DIR$/server/src/server/lang/Languages.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1887">
+          <caret line="112" column="6" lean-forward="true" selection-start-line="112" selection-start-column="6" selection-end-line="112" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/server/ClientThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="38" column="27" lean-forward="true" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
+          <folding>
+            <element signature="e#14872#14873#0" expanded="true" />
+            <element signature="e#14914#14915#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/server/ThreadedServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+          <folding>
+            <element signature="docComment;class#ThreadedServer#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/client/ChatClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="34" column="32" lean-forward="true" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>chatting_app_server</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
